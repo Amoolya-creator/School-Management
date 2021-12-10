@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>School Management System - Setup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <h1>SETUP</h1>
+    <h3 class="text-center">Admin Particulars</h3>
+    <div class="container">
+        <div class="row form-group">
+            <label for="Admin_Username" class="col-xs-3 col-form-label text-right">Admin Username</label>
+            <input id="Admin_Username" type="text" class="col-xs-3">
+            <label for="Admin_Password" class="col-xs-3 col-form-label text-right">Admin Password</label>
+            <input id="Admin_Password" type="password" class="col-xs-3">
+        </div>
+        <div class="row form-group">
+            <label for="Hint_Question" class="col-xs-3 text-right">Hint Question</label>
+            <select id="Hint_Question" class="col-xs-3 form-select">
+                <option selected="selected">What is your pet's name?</option>
+                <option>What is your wife's maiden name?</option>
+                <option>What is your favourite color?</option>
+            </select>
+            <label for="Hint_Answer" class="col-xs-3 text-right">Hint Answer</label>
+            <input id="Hint_Answer" type="text" class="col-xs-3">
+        </div>
+    </div>
+
+    <hr>
+    <h3 class="text-center">School Particulars</h3>
+    <div class="container">
+        <div class="row form-group">
+            <label class="col-xs-3 text-right"> School Name </label>
+            <label class="col-xs-3">
+                <script>
+                    document.write(window.localStorage.getItem("school_name"))
+                </script>
+            </label>
+            <label class="col-xs-3 text-right" for="school_logo_file">School Logo</label>
+            <input class="col-xs-3" name="school_logo_file" id="school_logo_file" type="file" accept=".png, .jpg, .jpeg">
+
+
+        </div>
+        <div class="row form-group">
+            <label class="col-xs-3 text-right"> School Address </label>
+            <input class="col-xs-3" name="school_address" id="school_address">
+            <label class="col-xs-3 text-right"> City
+            </label>
+            <label class="col-xs-3">
+                <script>
+                    document.write(window.localStorage.getItem("school_city"))
+                </script>
+            </label>
+        </div>
+        <div class="row form-group">
+            <label class="col-xs-3 text-right"> Principal Name </label>
+            <input class="col-xs-3" name="principal_name" id="principal_name">
+
+            <label class="col-xs-3 text-right"> Principal Email</label>
+            <input class="col-xs-3" name="principal_email" id="principal_email">
+        </div>
+        <div class="row form-group">
+            <label class="col-xs-3 text-right"> Vice Principal Name </label>
+            <input class="col-xs-3" name="vice_principal_name" id="vice_principal_name">
+
+            <label class="col-xs-3 text-right"> Vice Principal Email</label>
+            <input class="col-xs-3" name="vice_principal_email" id="vice_principal_email">
+        </div>
+    </div>
+    <hr>
+    <h3 class="text-center">School Section Particulars</h3>
+    <script>
+        var SectionList = ["Playgroup-Nursery-Kindergarten",
+            "Primary (Class I-V)",
+            "Middle (Class VI-VIII)",
+            "Secondary (Class IX & X)",
+            "Higher Secondary (Class XI & XII)"];
+
+        var tt = '<div class="container">';
+
+        SectionList.forEach(ele => {
+            var e = ele.substr(0, 4);
+
+            tt += '<div class="row">\
+                <label class="col-md-3" for="'+ e + '_checkbox">\
+                    <input id="'+ e + '_checkbox" type="checkbox" onclick="(this.checked) ? $(\'.toggle'+ e+'\').show(1000) : $(\'.toggle'+e+'\').hide(1000);">\
+                    '+ ele + '\
+                </label><br>\
+                <label class="col-md-2 col-sm-3 col-xs-6 dontshow toggle'+ e + '" for="' + e + '_name">Incharge Name\
+                    <input id="'+ e + '_name" name="'+ e + '_name" type="text">\
+                </label>\
+                <label class="col-md-3 col-sm-3 col-xs-6 dontshow toggle'+ e + '" for="' + e + '_email">Incharge Email\
+                    <input id="'+ e + '_email" name="'+ e + '_email" type="text">\
+                </label>\
+                <label class="col-md-2 col-sm-3 col-xs-6 dontshow toggle'+ e + '" for="' + e + '_sections">Sections per Class\
+                    <input id="'+ e + '_sections" name="'+ e + '_sections" type="number">\
+                </label>\
+                <label class="col-md-2 col-sm-3 col-xs-6 dontshow toggle'+ e + '" for="' + e + '_students">Students per Class\
+                    <input id="'+ e + '_students" name="'+ e + '_students" type="number">\
+                </label>\
+                </div>'
+        })
+        tt += '</div>'
+        document.write(tt)
+        $(".dontshow").hide();
+    </script>
+    <br>
+    <center>
+    <button id="save" class="btn btn-primary text-center">Save</button>
+    </center>
+
+    <br>
+    <br>
+
+    <script type="module" src="setup.js"></script>
+
+</body>
+
+</html>

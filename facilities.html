@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>School Management System - Setup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <h1>FACILITIES</h1>
+    <h3 class="text-center">Facilities Particulars</h3>
+    <div class="container">
+        <script>
+            Facilities = ["Library",
+                "AV equip",
+                "Smart Class",
+                "Computer Lab ",
+                "Chemistry Lab ",
+                "Bio Lab",
+                "Swimming Pool",
+                "Basket Ball Court",
+                "Badminton Court",
+                "Open Field",
+                "Dramatics stage",
+                "Conference hall"
+            ]
+            tt = '<div class="container">'
+            tt +='<div class="row">\
+                <label class="col-md-6 text-center h4">Facility</label>\
+                <label class="col-md-3 text-center h4">Incharge Name</label>\
+                <label class="col-md-3 text-center h4">Incharge Email</label></div><br>'
+            Facilities.forEach(ele => {
+                tt += '<div class="row">\
+               <input class="col-md-2" type="checkbox">\
+               <label class="col-md-4">' + ele + '</label>\
+               <input class="col-md-3" type="text" name="' + ele + '_name">\
+               <input class="col-md-3" type="text" name="' + ele + '_email">\
+                </div>'
+            });
+            tt += "</div>"
+            document.write(tt)
+        </script>
+    </body>
