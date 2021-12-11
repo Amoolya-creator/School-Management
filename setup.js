@@ -1,6 +1,6 @@
 import {
     db
-} from './main.js';
+} from "./main.js";
 import {
     ref,
     set
@@ -10,7 +10,7 @@ document.getElementById('save').addEventListener('click', () => {
 
     var school_name = window.localStorage.getItem("school_name")
     var school_city = window.localStorage.getItem("school_city")
-    var reff = ref(db, '/' + school_name + school_city+ '/');
+    var reff = ref(db, '/' + school_name + school_city);
 
     var SetUp_Data = {};
     SetUp_Data['Admin_Username'] = $('#Admin_Username').val();
@@ -28,23 +28,22 @@ document.getElementById('save').addEventListener('click', () => {
     SetUp_Data['Vice Principal Name'] = $('#vice_principal_name').val();
     SetUp_Data['Vice Principal Email'] = $('#vice_principal_email').val();
 
-    set(reff,{
-        name:"Anu"
-    })
-    set(reff, {SetUp_Data}).then(console.log("Data Saved"));
+    set(reff, SetUp_Data).then(console.log("Data Saved"));
 
     var List = ['_name', '_email', '_sections', '_students']
     var Sections = {}
     SectionList.forEach(ele => {
         var e = ele.substr(0, 4);
-        List.forEach(ee => {
-            Sections[e + ee] = $('#' + e + ee).val()
-        })
+        if ($('#' + e + '_name').val() != '') { //if Section name ="" then skip writing data
+            List.forEach(ee => {
+                Sections[e + ee] = $('#' + e + ee).val()
+            })
+        }
     });
 
     var Section_ref = ref(db, '/' + school_name + school_city + '/Sections');
 
-    set(Section_ref, Sections)
+    set(Section_ref, Sections).then(console.log("Data Saved"));
 
-    window.location.assign("./facilities.html");
+   window.location.assign("./facilities.html");
 });

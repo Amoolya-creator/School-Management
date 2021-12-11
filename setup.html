@@ -2,124 +2,127 @@
 <html lang="en">
 
 <head>
-    <title>School Management System - Setup</title>
+    <title>School Management - Setup</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
-    <h1>SETUP</h1>
-    <h3 class="text-center">Admin Particulars</h3>
     <div class="container">
+        <h3 class="mt-5 text-center rounded">Admin Particulars</h3>
         <div class="row form-group">
-            <label for="Admin_Username" class="col-xs-3 col-form-label text-right">Admin Username</label>
-            <input id="Admin_Username" type="text" class="col-xs-3">
-            <label for="Admin_Password" class="col-xs-3 col-form-label text-right">Admin Password</label>
-            <input id="Admin_Password" type="password" class="col-xs-3">
+            <label for="Admin_Username" class="col col-form-label">Admin Username
+                <input id="Admin_Username" type="text" class="form-control"></label>
+            <label for="Admin_Password" class="col col-form-label">Admin Password
+                <input id="Admin_Password" type="password" class="form-control"></label>
         </div>
         <div class="row form-group">
-            <label for="Hint_Question" class="col-xs-3 text-right">Hint Question</label>
-            <select id="Hint_Question" class="col-xs-3 form-select">
-                <option selected="selected">What is your pet's name?</option>
-                <option>What is your wife's maiden name?</option>
-                <option>What is your favourite color?</option>
-            </select>
-            <label for="Hint_Answer" class="col-xs-3 text-right">Hint Answer</label>
-            <input id="Hint_Answer" type="text" class="col-xs-3">
+            <label for="Hint_Question" class="col">Hint Question
+                <select id="Hint_Question" class="form-select">
+                    <option selected="selected">What is your pet's name?</option>
+                    <option>What is your wife's maiden name?</option>
+                    <option>What is your favourite color?</option>
+                </select>
+            </label>
+            <label for="Hint_Answer" class="col text-right">Hint Answer
+                <input id="Hint_Answer" type="text" class="form-control">
+            </label>
         </div>
     </div>
 
     <hr>
-    <h3 class="text-center">School Particulars</h3>
     <div class="container">
+        <h3 class="text-center rounded">School Particulars</h3>
+
         <div class="row form-group">
-            <label class="col-xs-3 text-right"> School Name </label>
-            <label class="col-xs-3">
+            <label class="col-6"> School Name
+           
                 <script>
-                    document.write(window.localStorage.getItem("school_name"))
+                    document.write('<input class="form-control" readonly value="'+window.localStorage.getItem("school_name")+'">');
                 </script>
             </label>
-            <label class="col-xs-3 text-right" for="school_logo_file">School Logo</label>
-            <input class="col-xs-3" name="school_logo_file" id="school_logo_file" type="file" accept=".png, .jpg, .jpeg">
+            <label class="col" for="school_logo_file">School Logo
+                <input class="form-control" name="school_logo_file" id="school_logo_file" type="file"
+                    accept=".png, .jpg, .jpeg"></label>
 
 
         </div>
         <div class="row form-group">
-            <label class="col-xs-3 text-right"> School Address </label>
-            <input class="col-xs-3" name="school_address" id="school_address">
-            <label class="col-xs-3 text-right"> City
-            </label>
-            <label class="col-xs-3">
+            <label class="col-6"> School Address
+                <input class="form-control" name="school_address" id="school_address"></label>
+            <label class="col-6"> City                
                 <script>
-                    document.write(window.localStorage.getItem("school_city"))
+                    document.write('<input class="form-control" readonly value="'+ window.localStorage.getItem("school_city")+'">');
                 </script>
             </label>
         </div>
         <div class="row form-group">
-            <label class="col-xs-3 text-right"> Principal Name </label>
-            <input class="col-xs-3" name="principal_name" id="principal_name">
-
-            <label class="col-xs-3 text-right"> Principal Email</label>
-            <input class="col-xs-3" name="principal_email" id="principal_email">
+            <label class="col"> Principal Name
+                <input class="form-control" name="principal_name" id="principal_name"></label>
+            <label class="col"> Principal Email
+                <input class="form-control" name="principal_email" id="principal_email" type="email"></label>
         </div>
         <div class="row form-group">
-            <label class="col-xs-3 text-right"> Vice Principal Name </label>
-            <input class="col-xs-3" name="vice_principal_name" id="vice_principal_name">
-
-            <label class="col-xs-3 text-right"> Vice Principal Email</label>
-            <input class="col-xs-3" name="vice_principal_email" id="vice_principal_email">
+            <label class="col"> Vice Principal Name
+                <input class="form-control" name="vice_principal_name" id="vice_principal_name"></label>
+            <label class="col"> Vice Principal Email
+                <input class="form-control" name="vice_principal_email" id="vice_principal_email" type="email"></label>
         </div>
     </div>
     <hr>
-    <h3 class="text-center">School Section Particulars</h3>
-    <script>
-        var SectionList = ["Playgroup-Nursery-Kindergarten",
-            "Primary (Class I-V)",
-            "Middle (Class VI-VIII)",
-            "Secondary (Class IX & X)",
-            "Higher Secondary (Class XI & XII)"];
+    <div class="container">
+        <h3 class="text-center">School Section Particulars</h3>
+        <script>
+            var SectionList = ["Playgroup-Nursery-Kindergarten",
+                "Primary (Class I-V)",
+                "Middle (Class VI-VIII)",
+                "Secondary (Class IX & X)",
+                "Higher Secondary (Class XI & XII)"
+            ];
 
-        var tt = '<div class="container">';
+            var tt = ''; //tt=temporary text
 
-        SectionList.forEach(ele => {
-            var e = ele.substr(0, 4);
+            SectionList.forEach(ele => {
+                var e = ele.substr(0, 4);
 
-            tt += '<div class="row">\
-                <label class="col-md-3" for="'+ e + '_checkbox">\
-                    <input id="'+ e + '_checkbox" type="checkbox" onclick="(this.checked) ? $(\'.toggle'+ e+'\').show(1000) : $(\'.toggle'+e+'\').hide(1000);">\
-                    '+ ele + '\
-                </label><br>\
-                <label class="col-md-2 col-sm-3 col-xs-6 dontshow toggle'+ e + '" for="' + e + '_name">Incharge Name\
-                    <input id="'+ e + '_name" name="'+ e + '_name" type="text">\
+                tt += '<div class="mt-3 row form-check">\
+                <label class="col-12 col-form-label-lg" for="' + e + '_checkbox">\
+                    <input class="form-check-input" id="' + e +
+                    '_checkbox" type="checkbox" data-bs-toggle="collapse" data-bs-target="#' + e + '">\
+                    ' + ele + '\
                 </label>\
-                <label class="col-md-3 col-sm-3 col-xs-6 dontshow toggle'+ e + '" for="' + e + '_email">Incharge Email\
-                    <input id="'+ e + '_email" name="'+ e + '_email" type="text">\
+                </div>\
+                <div class="row collapse form-group" id="' + e + '">\
+                    <label class="col-3 offset-1 col-form-label" for="' + e + '_name">Incharge Name\
+                    <input class="form-control" id="' + e + '_name" name="' + e + '_name" type="text">\
                 </label>\
-                <label class="col-md-2 col-sm-3 col-xs-6 dontshow toggle'+ e + '" for="' + e + '_sections">Sections per Class\
-                    <input id="'+ e + '_sections" name="'+ e + '_sections" type="number">\
+                <label class="col-3 col-form-label" for="' + e + '_email">Incharge Email\
+                    <input class="form-control" id="' + e + '_email" name="' + e + '_email" type="email">\
                 </label>\
-                <label class="col-md-2 col-sm-3 col-xs-6 dontshow toggle'+ e + '" for="' + e + '_students">Students per Class\
-                    <input id="'+ e + '_students" name="'+ e + '_students" type="number">\
+                <label class="col-2 col-form-label" for="' + e + '_sections">Sections per Class\
+                    <input class="form-control" id="' + e + '_sections" name="' + e + '_sections" type="number" min=1 max=10 value="1">\
+                </label>\
+                <label class="col-3 col-form-label" for="' + e + '_students">Students per Class\
+                    <input class="form-control" id="' + e + '_students" name="' + e + '_students" type="number" min=1 value="30">\
                 </label>\
                 </div>'
-        })
-        tt += '</div>'
-        document.write(tt)
-        $(".dontshow").hide();
-    </script>
+            })
+
+            document.write(tt)
+        </script>
+    </div>
     <br>
     <center>
-    <button id="save" class="btn btn-primary text-center">Save</button>
+        <button id="save" class="col-3 btn btn-primary text-center">Save</button>
     </center>
-
     <br>
     <br>
-
-    <script type="module" src="setup.js"></script>
-
+    <script type="module" src="./setup.js"></script>
 </body>
 
 </html>

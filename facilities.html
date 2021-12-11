@@ -2,46 +2,41 @@
 <html lang="en">
 
 <head>
-    <title>School Management System - Setup</title>
+    <title>School Management - Setup</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
 
 <body>
-    <h1>FACILITIES</h1>
-    <h3 class="text-center">Facilities Particulars</h3>
+
     <div class="container">
-        <script>
-            Facilities = ["Library",
-                "AV equip",
-                "Smart Class",
-                "Computer Lab ",
-                "Chemistry Lab ",
-                "Bio Lab",
-                "Swimming Pool",
-                "Basket Ball Court",
-                "Badminton Court",
-                "Open Field",
-                "Dramatics stage",
-                "Conference hall"
-            ]
-            tt = '<div class="container">'
-            tt +='<div class="row">\
-                <label class="col-md-6 text-center h4">Facility</label>\
-                <label class="col-md-3 text-center h4">Incharge Name</label>\
-                <label class="col-md-3 text-center h4">Incharge Email</label></div><br>'
-            Facilities.forEach(ele => {
-                tt += '<div class="row">\
-               <input class="col-md-2" type="checkbox">\
-               <label class="col-md-4">' + ele + '</label>\
-               <input class="col-md-3" type="text" name="' + ele + '_name">\
-               <input class="col-md-3" type="text" name="' + ele + '_email">\
-                </div>'
-            });
-            tt += "</div>"
-            document.write(tt)
-        </script>
-    </body>
+        <h3 class="mt-5 text-center rounded">Facilities Details</h3>
+        <div class="row">
+            <label class="col-6 col-form-label-lg">Facilities Available in School</label>
+        </div>
+        <h6 class="text-info">Click on the checkbox to enter details</h6>
+        <form name="myFacilities" method="post">
+            <div id="DF"></div>
+            <div class="row form-group">
+                <button id="add_button" class="mt-5 col-2 offset-1 btn btn-primary" \ data-bs-toggle="collapse"
+                    data-bs-target="#new_facility_name">Add more</button>
+                <input class="mt-5 col offset-1 form-control collapse" type="text" id="new_facility_name"
+                    placeholder="New Facility Name">
+                <div class="row">
+                    <button id="save_facilities" class="mt-5 mx-auto col-6 offset-1 btn btn-primary">Save Data</button>
+                </div>
+                <div class="mt-3 p-3 bg-info text-white text-center rounded border border-primary h5">\
+                    The Incharge Personnels can Enter their respective inventories after logging in the System
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="module" src="./facilities.js"></script>
+    <br>
+</body>

@@ -4,11 +4,11 @@
 <head>
     <title>School Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script>
         //Get School ID if present in local storage
@@ -19,27 +19,25 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="jumbotron">
+    <div class="container">
+        <div class="my-4 p-5 bg-primary text-white rounded">
             <h1 class="text-center">School Management</h1>
-            <h4 class="text-center">A complete school management system</h4>
+            <h6 class="text-center">A complete school management system</h6>
         </div>
     </div>
-    <div class='container-fluid'>
-        <center>
-        <div class='row form-group'>
-            <label class='form-label' for='school_name'>Enter School Name</label>
-            <input type='text' id='school_name' class='form-inline'><br>
+    <div class='container text-center'>        
+        <div class='form-group'>
+            <label class='m-3 form-label' for='school_name'>Enter School Name
+            <input type='text' id='school_name' class='form-control'></label>
         </div>
-        <div  class='row form-group'>
-            <label class='form-label' for='school_city'>Enter School City</label>
-            <input type='text' id='school_city' class='form-inline'>
+        <div  class='form-group'>
+            <label class='m-3 form-label' for='school_city'>Enter School City
+            <input type='text' id='school_city' class='form-control'></label>
         </div>
-        <div class='row form-group'>
-            <button class='btn btn-primary' id='sanitise_data'>
+        <div class='form-group'>
+            <button class='m-3 btn btn-primary' id='sanitise_data'>
             Check my school credentials</button>
-        </div>
-        </center>
+        </div>        
     </div>
     <br>
     <script type="module" src="index.js"></script>
