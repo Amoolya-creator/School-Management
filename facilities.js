@@ -43,13 +43,13 @@ document.getElementById("new_facility_name").addEventListener('change', () => {
     var n = Facilities.length;
     var New_Facility = $("#new_facility_name").val()
     Facilities.push(New_Facility)
-    var tt = '<label class="form-check">\
+    var tt = `<label class="form-check">\
     <input class="form-check-input" data-bs-toggle="collapse" \
-    data-bs-target="#Pos' + n + '" type="checkbox" id="checkbox_' + n + '">' + New_Facility + '\
+    data-bs-target="#Pos${n}" type="checkbox" id="checkbox_${n}">${New_Facility}\
     </label>\
-    <div class="row collapse" id="Pos' + n + '">\
-    <input class="col offset-4 form-control" type="text" placeholder="Incharge Name" id="name_' + n + '" name="name_' + n + '">\
-    <input class="col form-control" type="email" placeholder="Incharge Email" id="email_' + n + '" name="email_' + n + '">';
+    <div class="row collapse" id="Pos${n}">\
+    <input class="col offset-4 form-control" type="text" placeholder="Supervisor Name" id="name_${n}" name="name_${n}">\
+    <input class="col form-control" type="email" placeholder="Supervisor Email" id="email_${n}" name="email_${n}">`;
     var New_block = document.createElement('div');
     New_block.classList.add("form-group");
     New_block.innerHTML = tt;
@@ -73,15 +73,20 @@ document.getElementById("save_facilities").addEventListener('click', () => {
         //Getting data from Form fields
         var _name = FD[row * 3 + 1].value
         var _email = FD[row * 3 + 2].value
+        var Data ={}
         //Not writing data where empty name value
         if (_name != '') {
-            var Data = {
+            Data = {
                 'Incharge Name': _name,
                 'Incharge Email': _email
             }
-            alert(Path+", "+JSON.stringify(Data))
-            set(ref(db,Path), Data).then(console.log('Data Saved'))
+            alert(Path +","+  JSON.stringify(Data))
+           // set(ref(db,Path), Data).then(console.log('Data Saved'))
         }
         row++
     })
+
+    next();
 })
+
+function next(){window.location="./manpower.html";}

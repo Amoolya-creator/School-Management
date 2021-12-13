@@ -7,7 +7,10 @@ import {
     set
 } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
 
+
+
 document.getElementById('save').addEventListener('click', () => {
+    var hashCode = s => s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0)
 
     var school_name = window.localStorage.getItem("school_name")
     var school_city = window.localStorage.getItem("school_city")
@@ -45,6 +48,7 @@ document.getElementById('save').addEventListener('click', () => {
         Post:"Principal",
         Name: $('#principal_name').val(),
         Email: $('#principal_email').val(),
+        Password:hashCode($('#principal_name').val()),
         UserID:"Principal",
         Supervises:"Vice Principal, All Section Incharges"
     }
@@ -53,16 +57,17 @@ document.getElementById('save').addEventListener('click', () => {
         Post:"Vice Principal",
         Name: $('#vice_principal_name').val(),
         Email: $('#vice_principal_email').val(),
+        Password:hashCode($('#vice_principal_name').val()),
         UserID:"Vice Principal",
         Supervises:"All Supervisors"
     }
 
-
     var Manpower_Principal_ref = ref(db, '/' + school_name + school_city + '/Manpower/Principal')
     var Manpower_Vice_Principal_ref = ref(db, '/' + school_name + school_city + '/Manpower/Vice Principal')
 
-    set(Manpower_Principal_ref, Principal).then(console.log("Principal Data Saved"));
-    set(Manpower_Vice_Principal_ref, Vice_Principal).then(console.log("VP Data Saved"));
-
-    window.location.assign("./manpower.html");
+    set(Manpower_Principal_ref, Principal).then(console.log("Data Saved"));
+    set(Manpower_Vice_Principal_ref, Vice_Principal).then(next);
 });
+
+function next(){window.location="./facilities.html" 
+}
