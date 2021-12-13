@@ -2,6 +2,7 @@ import {
     db
 } from "./main.js";
 import {
+    getDatabase,
     ref,
     set
 } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
@@ -23,11 +24,6 @@ document.getElementById('save').addEventListener('click', () => {
     SetUp_Data['School City'] = school_city;
     SetUp_Data['School Logo'] = "";
 
-    SetUp_Data['Principal Name'] = $('#principal_name').val();
-    SetUp_Data['Principal Email'] = $('#principal_email').val();
-    SetUp_Data['Vice Principal Name'] = $('#vice_principal_name').val();
-    SetUp_Data['Vice Principal Email'] = $('#vice_principal_email').val();
-
     set(reff, SetUp_Data).then(console.log("Data Saved"));
 
     var List = ['_name', '_email', '_sections', '_students']
@@ -45,5 +41,28 @@ document.getElementById('save').addEventListener('click', () => {
 
     set(Section_ref, Sections).then(console.log("Data Saved"));
 
-   window.location.assign("./facilities.html");
+    var Principal = {
+        Post:"Principal",
+        Name: $('#principal_name').val(),
+        Email: $('#principal_email').val(),
+        UserID:"Principal",
+        Supervises:"Vice Principal, All Section Incharges"
+    }
+
+    var Vice_Principal = {
+        Post:"Vice Principal",
+        Name: $('#vice_principal_name').val(),
+        Email: $('#vice_principal_email').val(),
+        UserID:"Vice Principal",
+        Supervises:"All Supervisors"
+    }
+
+
+    var Manpower_Principal_ref = ref(db, '/' + school_name + school_city + '/Manpower/Principal')
+    var Manpower_Vice_Principal_ref = ref(db, '/' + school_name + school_city + '/Manpower/Vice Principal')
+
+    set(Manpower_Principal_ref, Principal).then(console.log("Principal Data Saved"));
+    set(Manpower_Vice_Principal_ref, Vice_Principal).then(console.log("VP Data Saved"));
+
+    window.location.assign("./manpower.html");
 });
