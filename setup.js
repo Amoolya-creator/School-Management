@@ -10,7 +10,10 @@ import {
 
 
 document.getElementById('save').addEventListener('click', () => {
-    var hashCode = s => s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0)
+    var hashCode = s => s.split('').reduce((a, b) => {
+        a = ((a << 5) - a) + b.charCodeAt(0);
+        return a & a
+    }, 0)
 
     var school_name = window.localStorage.getItem("school_name")
     var school_city = window.localStorage.getItem("school_city")
@@ -29,37 +32,41 @@ document.getElementById('save').addEventListener('click', () => {
 
     set(reff, SetUp_Data).then(console.log("Data Saved"));
 
-    var List = ['_name', '_email', '_sections', '_students']
-    var Sections = {}
+      var x = 0;
     SectionList.forEach(ele => {
         var e = ele.substr(0, 4);
+        var Section_ref = ref(db, '/' + school_name + school_city + '/Manpower/Section-' + ele);
         if ($('#' + e + '_name').val() != '') { //if Section name ="" then skip writing data
-            List.forEach(ee => {
-                Sections[e + ee] = $('#' + e + ee).val()
-            })
+            var Section_Incharge = {
+                Post: "Section Incharge",
+                Name: $('#' + e + '_name').val(),
+                Email: $('#' + e + '_email').val(),
+                Password: hashCode($('#' + e + '_name').val()),
+                UserID: "SIC-" + x++,
+                Supervises: "Teachers",
+                Sections_in_class: $('#' + e + '_sections').val(),
+                No_of_students_per_class: $('#' + e + '_students').val(),
+            }
+            set(Section_ref, Section_Incharge);
         }
     });
 
-    var Section_ref = ref(db, '/' + school_name + school_city + '/Sections');
-
-    set(Section_ref, Sections).then(console.log("Data Saved"));
-
     var Principal = {
-        Post:"Principal",
+        Post: "Principal",
         Name: $('#principal_name').val(),
         Email: $('#principal_email').val(),
-        Password:hashCode($('#principal_name').val()),
-        UserID:"Principal",
-        Supervises:"Vice Principal, All Section Incharges"
+        Password: hashCode($('#principal_name').val()),
+        UserID: "Principal",
+        Supervises: "Vice Principal, All Section Incharges"
     }
 
     var Vice_Principal = {
-        Post:"Vice Principal",
+        Post: "Vice Principal",
         Name: $('#vice_principal_name').val(),
         Email: $('#vice_principal_email').val(),
-        Password:hashCode($('#vice_principal_name').val()),
-        UserID:"Vice Principal",
-        Supervises:"All Supervisors"
+        Password: hashCode($('#vice_principal_name').val()),
+        UserID: "Vice Principal",
+        Supervises: "All Supervisors"
     }
 
     var Manpower_Principal_ref = ref(db, '/' + school_name + school_city + '/Manpower/Principal')
@@ -69,5 +76,6 @@ document.getElementById('save').addEventListener('click', () => {
     set(Manpower_Vice_Principal_ref, Vice_Principal).then(next);
 });
 
-function next(){window.location="./facilities.html" 
+function next() {
+    window.location = "./facilities.html"
 }

@@ -21,22 +21,20 @@
             <label class="col-6 col-form-label-lg">Facilities Available in School</label>
         </div>
         <h6 class="text-info">Click on the checkbox to enter details</h6>
-        <form name="myFacilities" method="post">
-            <div id="DF"></div>
-            <div class="row form-group">
-                <button id="add_button" class="mt-5 col-2 offset-1 btn btn-primary" \ data-bs-toggle="collapse"
-                    data-bs-target="#new_facility_name">Add more</button>
-                <input class="mt-5 col offset-1 form-control collapse" type="text" id="new_facility_name"
-                    placeholder="New Facility Name">
-                <div class="row">
-                    <button id="save_facilities" class="mt-5 mx-auto col-6 offset-1 btn btn-primary">Save Data</button>
-                </div>
-                <div class="mt-3 p-3 bg-info text-white text-center rounded border border-primary h5">\
-                    The Incharge Personnels can Enter their respective inventories after logging in the System
-                </div>
-            </div>
-        </form>
     </div>
+    <div id="DF" class="mt-4 container">
+    </div>
+    <div class="mt-4 container">
+        <div class="row form-group">
+            <button id="add_button" class="btn btn-primary btn-lg col" data-bs-toggle="collapse"
+                data-bs-target="#new_facility_name">Add New Facility</button>
+            <input class="col form-control collapse" type="text" id="new_facility_name" placeholder="New Facility Name">
+        </div>
+   
+            <button id="save_facilities_data" class="btn btn-primary mt-4">Save Facilities Data</button>
+      
+    </div>
+
     <script type="module" src="./facilities.js"></script>
     <br>
 </body>
