@@ -1,5 +1,5 @@
 import {
-    db
+    db, hashCode
 } from "./main.js";
 import {
     ref,
@@ -70,38 +70,32 @@ $("#new_facility_name").on('change', () => {
 
 
 $("#save_facilities_data").on('click', () => {
-    var hashCode = s => s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0)
-    
+
     var school_name = window.localStorage.getItem("school_name")
     var school_city = window.localStorage.getItem("school_city")
-    var row = 0;var x=0;
+    var row = 0; var x = 0;
     Facilities.forEach(e => {
-                   
-            //Check for checked Facility names && name field has some data
-            if ($("#name_"+row).val() != ""){
-                
-            //Setting reference path for Facilities in database
-            var Path = '/'+school_name+school_city+'/Facilities/'+e;
 
-            //Setting reference path for Manpower of Facilities in database
-            var man_Path = '/'+school_name+school_city+'/Manpower/Supervisor-'+e;
-            var data={
-                Post:"Supervisor",
-                Name:$("#name_"+row).val(),
-                UserID:"S-"+x++,
-                Password:hashCode($("#name_"+row).val()),
-                Email:$("#email_"+row).val(),
-                Supervises:"To be Added by Supervisor"
-            }
-            
+        //Check for name field has some data
+        if ($("#name_" + row).val() != "") {
+
+            //Setting reference path for Facilities in database
+            var Path = '/' + school_name + school_city + '/Facilities/' + e;
             set(ref(db, Path), "true")
+            //Setting reference path for Manpower of Facilities in database
+            var man_Path = '/' + school_name + school_city + '/Manpower/Supervisor-' + e;
+            var data = {
+                Post: "Supervisor",
+                Name: $("#name_" + row).val(),
+                UserID: "S" + x++,
+                Password: hashCode($("#name_" + row).val()),
+                Email: $("#email_" + row).val(),
+                Supervises: e
+            }
             set(ref(db, man_Path), data)
-           
         }
         row++
     })
-    console.log("Data Saved")
-    next();
+    alert("Data Saved")
+   // window.location = "./manpower.html";
 })
-
-function next(){window.location = "./manpower.html";}

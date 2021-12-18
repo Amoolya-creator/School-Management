@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>School Management System - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+        //Get School ID if present in local storage
+        school_name = window.localStorage.getItem("school_name")
+        school_city = window.localStorage.getItem("school_city")
+        // if (school_name != null && school_city != null) window.location.assign("login.html")
+    </script>
+</head>
+
+<body class="bg-info">
+    <div class="container-fluid">
+        <div class="mx-4 p-2 text-center rounded" >
+        <h1>Dashboard</h1>
+        </div>
+        <div class="mx-4 p-2 text-center rounded">
+            <h3 id="school">
+                <script>
+                    document.write(school_name + ", " + school_city)
+                </script>
+            </h3>
+        </div>
+        <div id="head" class="row p-2 m-4 bg-primary rounded">
+            <div class="col-6">
+                <h5 class="p-3">Post: <span id="Post"></span></h4>
+            </div>
+            <div class="col">
+                <h5 class="p-3">Name: <span id="Name"></span></h4>
+            </div>
+            <div class="col">
+                <h5 class="p-3">UserID: <span id="UserID"></span></h4>
+            </div>
+        </div>
+
+        <div class="row p-2 m-4 bg-dark rounded ">
+            <div class="col-8">
+                <div class=" rounded p-2 mb-2 bg-white">
+                    <h3>Pending Requests</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>From</th>
+                                <th>Action</th>
+                                <th>Object</th>
+                                <th>Place</th>
+                                <th>Priority</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="Requests"></tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="col-4">
+                <div id="Staff" class="bg-info rounded p-2">
+                    <h3>My Staff</h3>
+                    <table class="table">
+                        <thead>
+                            <th>Category</th>
+                            <th>UserID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </thead>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row p-2 m-4 bg-primary rounded">
+            <div>
+                <h3 class="rounded">Realtime Status</h3>
+            </div>
+            <div id="Staff" class="bg-white m-3 rounded">
+                <table class="table table-striped table-hover m-2 ">
+                    <thead>
+                        <tr>
+                            <th>Work Assigned</th>
+                            <th>To whom</th>
+                            <th>Place</th>
+                            <th>Time</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Check Fan</td>
+                            <td>Amoolya</td>
+                            <td>Class 6B</td>
+                            <td>10:30 AM</td>
+                            <td>Routine</td>
+                            <td>Pending</td>
+                        </tr>
+                        <tr>
+                            <td>Check Bulb</td>
+                            <td>Amoolya</td>
+                            <td>Class 7D</td>
+                            <td>10:40 AM</td>
+                            <td>Routine</td>
+                            <td>Pending</td>
+                        </tr>
+                        <tr>
+                            <td>Check Bulb</td>
+                            <td>Amoolya</td>
+                            <td>Class 7D</td>
+                            <td>10:40 AM</td>
+                            <td>Routine</td>
+                            <td>Pending</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row p-2 m-4 bg-primary rounded ">
+            <div class="rounded">
+            <h3>Send Instructions to Staff</h3>
+            </div>
+            <div class="col-2 form-group">
+                <h6>Action</h6>
+                <select id="action" class="form-control" type="text">
+                    <option name="Check">Check</option>
+                    <option name="Repair">Repair</option>
+                    <option name="Clean">Clean</option>
+                    <option name="Add">Add</option>
+                    <option name="Remove">Remove</option>
+                    <option name="Replace">Replace</option>
+                    <option name="Indent">Indent</option>
+                    <option name="Meeting">Meeting</option>
+                </select>
+            </div>
+            <div class="col-2 form-group">
+                <h6>Object</h6>
+                <input id="object" class="form-control" type="text"></input>
+            </div>
+            <div class="col-2 form-group">
+                <h6>Place</h6>
+                <input id="place" class="form-control" type="text"></input>
+            </div>
+            <div class="col-2">
+                <h6>Priority</h6>
+                <select id="priority" class="form-control">
+                    <option class="selected" name="Routine">Routine</option>
+                    <option class="text-warning" name="Priority">Priority</option>
+                    <option class="text-danger" name="Urgent">Urgent</option>
+                    <option class="text-danger" name="Immediate">Immediate</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <h6>To</h6>
+                <select id="send_to" class="form-control">
+                    <option></option>
+                </select>
+            </div>
+            <div class="col-1">
+                <h6>&nbsp;</h6>
+                <button id="send_btn" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+        
+        <div class="row bg-light rounded p-4">
+            <div class="col text-center">
+                <button class="btn btn-primary">Send Report to Superior</button>
+            </div>
+            <div class="col text-center">
+                <button class="btn btn-primary">Settings</button>
+            </div>
+            <div class="col text-center">
+                <button class="btn btn-primary">Logout</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="./dashboard.js"></script>
+</body>

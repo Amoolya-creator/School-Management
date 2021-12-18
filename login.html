@@ -2,55 +2,50 @@
 <html lang="en">
 
 <head>
-    <title>School Management System - Login</title>
+    <title>School Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-
     <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+        var school_name = window.localStorage.getItem("school_name")
+        var school_city = window.localStorage.getItem("school_city")
+    </script>
 </head>
 
 <body>
-    <div class="container">
+    <h1>LOGIN</h1>
+
+    <div class="container-fluid">
         <center>
-            <div class="mt-5">
-                <h3>Welcome to Login Portal of<br>
-                    <script>
-                        school_name = window.localStorage.getItem("school_name")
-                        school_city = window.localStorage.getItem("school_city")
-                        document.write(school_name + ", " + school_city);
-                    </script>
-                </h3>
-            </div>
-            <h6>Not your school ? Click
+            <h3>Welcome to Login Screen of <br>
                 <span>
-                    <a onclick="localStorage.clear();" href="index.html">here</a>
+                    <script>document.write(school_name + ", " + school_city)</script>
                 </span>
-            </h6>
-            <br><br>
-            <div class="my-5 p-5 bg-info rounded border border-primary">
-                <div class="my-3 form-group">
-                    <label class="form-label" for="user">User
-                        <input class="my-2 form-control" id="user" type="text" class="form-inline"></label>
-                </div>
-                <div class="my-3 form-group">
-                    <label class="form-label" for="password">Password
-                        <input class="my-2 form-control" id="password" type="password" class="form-inline"></label>
+            </h3>
+            <h6>Not my school. Click <a onclick=window.localStorage.clear() href="index.html">here</a></h6>
+            <div class="m-4 p-4 bg-info form-group">
+                <div>
+                    <label class="form-label">Name / UserID / Email
+                        <input class="form-control" type="text" id="user">
+                    </label>
                 </div>
                 <div>
-                    <button id='login' class="col-5 btn btn-primary">Login</button>
+                    <label>Password
+                        <input class="form-control" type="password" id="password">
+                    </label>
+                </div>
+                <br>
+                <div>
+
+                    <button id="login" class="p-2 btn btn-primary" type="password" id="password">Login</button>
+
                 </div>
             </div>
-            <div id="error_message" class="text-danger"></div>
         </center>
     </div>
-<script src="./login.js"></script>
+    <script type="module" src="./login.js"></script>
 </body>
-
-</html>

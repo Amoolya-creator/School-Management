@@ -1,38 +1,31 @@
 import {
-    db
+    db,hashCode
 } from "./main.js";
 import {
-    getDatabase,
     ref,
     set
 } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
 
 
-
 document.getElementById('save').addEventListener('click', () => {
-    var hashCode = s => s.split('').reduce((a, b) => {
-        a = ((a << 5) - a) + b.charCodeAt(0);
-        return a & a
-    }, 0)
-
     var school_name = window.localStorage.getItem("school_name")
     var school_city = window.localStorage.getItem("school_city")
     var reff = ref(db, '/' + school_name + school_city);
 
-    var SetUp_Data = {};
-    SetUp_Data['Admin_Username'] = $('#Admin_Username').val();
-    SetUp_Data['Admin_Password'] = $('#Admin_Password').val();
-    SetUp_Data['Hint_Question'] = $('#Hint_Question').val();
-    SetUp_Data['Hint_Answer'] = $('#Hint_Answer').val();
-
-    SetUp_Data['School Name'] = school_name;
-    SetUp_Data['School Address'] = $('#school_address').val();
-    SetUp_Data['School City'] = school_city;
-    SetUp_Data['School Logo'] = "";
+    var SetUp_Data = {
+        'Admin Username': $('#Admin_Username').val(),
+        'Admin Password': $('#Admin_Password').val(),
+        'Hint Question': $('#Hint_Question').val(),
+        'Hint Answer': $('#Hint_Answer').val(),
+        'School Name': school_name,
+        'School Address': $('#school_address').val(),
+        'School City': school_city,
+        'School Logo': ""
+    }
 
     set(reff, SetUp_Data).then(console.log("Data Saved"));
 
-      var x = 0;
+    var x = 0;
     SectionList.forEach(ele => {
         var e = ele.substr(0, 4);
         var Section_ref = ref(db, '/' + school_name + school_city + '/Manpower/Section-' + ele);
