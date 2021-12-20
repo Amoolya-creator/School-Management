@@ -13,10 +13,6 @@ document.getElementById('save').addEventListener('click', () => {
     var reff = ref(db, '/' + school_name + school_city);
 
     var SetUp_Data = {
-        'Admin Username': $('#Admin_Username').val(),
-        'Admin Password': $('#Admin_Password').val(),
-        'Hint Question': $('#Hint_Question').val(),
-        'Hint Answer': $('#Hint_Answer').val(),
         'School Name': school_name,
         'School Address': $('#school_address').val(),
         'School City': school_city,

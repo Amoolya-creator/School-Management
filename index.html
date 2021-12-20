@@ -2,45 +2,323 @@
 <html lang="en">
 
 <head>
-    <title>School Management System</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>SkoolTrak</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
+        rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nicepage.css" media="screen">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--===============================================================================================-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script>
-        //Get School ID if present in local storage
-        school_name = window.localStorage.getItem("school_name")
-        school_city = window.localStorage.getItem("school_city")
-        if (school_name != null && school_city != null) window.location.assign("login.html")
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>
-    <div class="container">
-        <div class="my-4 p-5 bg-primary text-white rounded">
-            <h1 class="text-center">School Management</h1>
-            <h6 class="text-center">A complete school management system</h6>
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container px-5">
+            <a class="navbar-brand" href="#page-top">SkoolTrak</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#loginsignup">Sign Up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#loginsignup">Log In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#scroll">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                </ul>
+            </div>
         </div>
+    </nav>
+    <!-- Header-->
+    <header class="masthead text-center text-white">
+        <div class="masthead-content">
+            <div class="container px-5">
+                <h1 class="masthead-heading mb-0">School Infrastructure Management</h1>
+                <h2 class="masthead-subheading mb-0">Track infrastructure & man-power in one place</h2>
+                <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Learn More</a>
+            </div>
+        </div>
+    </header>
+
+    <div>
+        <script>
+            //Get School ID if present in local storage
+            school_name = window.localStorage.getItem("school_name")
+            school_city = window.localStorage.getItem("school_city")
+            if (school_name != null && school_city != null) {
+                document.write("<h3 class='m-4 p-4 text-center'>Welcome to " + school_name + ", " + school_city + "</h3>\
+                <h6 class='m-4 p-4 text-center'>Not my school. Click <a onclick=window.localStorage.clear() href='./config_school.html'>here</a></h6>")
+            }
+            else { 
+                setTimeout(()=>{$("#loginsignup").hide(10000);})
+                setTimeout(() => {                   
+                    alert("We have detected that you are running this software for the first time on this machine.\
+ Please follow instructions to config your machine with your school")
+                window.location="./config_school.html";}, 15000)                
+            }
+        </script>
     </div>
-    <div class='container text-center'>        
-        <div class='form-group'>
-            <label class='m-3 form-label' for='school_name'>Enter School Name
-            <input type='text' id='school_name' class='form-control'></label>
+    <section id="loginsignup">
+        <div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100">
+                    <form class="login100-form validate-form" id="client-form">
+                        <span class="login100-form-title p-b-43">
+                            Login
+                        </span>
+
+                        <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                            <input class="input100" type="text" name="email" id="email">
+                            <span class="focus-input100"></span>
+                            <span class="label-input100">Email</span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input" data-validate="Password is required">
+                            <input class="input100" type="password" name="pass" id="password">
+                            <span class="focus-input100"></span>
+                            <span class="label-input100">Password</span>
+                        </div>
+
+                        <div class="flex-sb-m w-full p-t-3 p-b-32">
+                            <div class="contact100-form-checkbox">
+                            <input class="input-checkbox100" id="ckb1" onclick="fx1()" type="checkbox" name="remember-me">
+                                <label class="label-checkbox100" for="ckb1" >
+                                    Remember me
+                                </label>
+                                <script>
+                                    Email =  window.localStorage.getItem("Email")
+                                    Password = window.localStorage.getItem("Password")
+                                    if (!(Email=="" && Password =="")) $("#ckb1").click()
+                                    $("#email").click().val(Email)
+                                    $("#password").click().val(Password)
+
+                                    function fx1() {
+                                        if ($("#ckb1").is(':checked')) {
+                                            window.localStorage.setItem("Email",$("#email").val())
+                                            window.localStorage.setItem("Password",$("#password").val())
+                                        }
+                                        else{
+                                            window.localStorage.removeItem("Email")
+                                            window.localStorage.removeItem("Password")
+                                        }
+                                    }
+
+                                </script>
+                            </div>
+
+                            <!-- <div>
+                                <a href="#" class="txt1">
+                                    Forgot Password?
+                                </a>
+                            </div> -->
+                        </div>
+
+
+                        <div class="container-login100-form-btn">
+                            <button class="login100-form-btn" type="submit">
+                                Login
+                            </button>
+                        </div>
+                        <br />
+                        <div class="container-login100-form-btn">
+                            <button id="subtn" class="login100-form-btn" type="button">
+                                Sign Up
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <div class="login100-more" style="background-image: url('./assets/img/admin1.jpg');">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div  class='form-group'>
-            <label class='m-3 form-label' for='school_city'>Enter School City
-            <input type='text' id='school_city' class='form-control'></label>
+
+
+
+
+
+        <!--===============================================================================================-->
+        <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="vendor/animsition/js/animsition.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="vendor/bootstrap/js/popper.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="vendor/select2/select2.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="vendor/daterangepicker/moment.min.js"></script>
+        <script src="vendor/daterangepicker/daterangepicker.js"></script>
+        <!--===============================================================================================-->
+        <script src="vendor/countdowntime/countdowntime.js"></script>
+        <!--===============================================================================================-->
+    </section>
+
+    <!-- Content section 1-->
+    <section id="scroll">
+        <div class="container px-5">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-6 order-lg-2">
+                    <div class="p-5"><img class="img-fluid rounded-circle" src="./assets/img/classroom1.image.jpg"
+                            alt="..." /></div>
+                </div>
+                <div class="col-lg-6 order-lg-1">
+                    <div class="p-5">
+                        <h2 class="display-4">Manage Infrastructure</h2>
+                        <p>Manage the school infrastructure. Supervisors can see in realtime what is available, what is
+                            missing
+                            and can order for items to be indented.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class='form-group'>
-            <button class='m-3 btn btn-primary' id='sanitise_data'>
-            Check my school credentials</button>
-        </div>        
-    </div>
-    <br>
-    <script type="module" src="index.js"></script>
+    </section>
+    <!-- Content section 2-->
+    <section>
+        <div class="container px-5">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-6">
+                    <div class="p-5"><img class="img-fluid rounded-circle"
+                            src="https://advantaschoolsoftware.files.wordpress.com/2013/07/istock_000006104193xsmall_crop380w.jpg"
+                            alt="..." /></div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="p-5">
+                        <h2 class="display-4">Head count of Man-power</h2>
+                        <p>Supervisors can keep a tab on their workforce and can effectively manage them in the most
+                            efficient manner.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Content section 3-->
+    <section>
+        <div class="container px-5">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-6 order-lg-2">
+                    <div class="p-5"><img class="img-fluid rounded-circle" src="./assets/img/library.jpg" alt="..." />
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1">
+                    <div class="p-5">
+                        <h2 class="display-4">Facilities Maintenance</h2>
+                        <p>The main attraction of this App is to give complete control of all maintainence activities.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="u-align-center u-clearfix u-palette-1-base u-section-3" id="about">
+        <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+            <h1 class="u-text u-text-default u-text-1">About The App</h1>
+            <hr />
+            <div class="u-clearfix u-expanded-width u-gutter-30 u-layout-wrap u-layout-wrap-1">
+                <div class="u-layout">
+                    <div class="u-layout-col">
+                        <div class="u-size-30">
+                            <div class="u-layout-row">
+                                <div
+                                    class="u-align-center u-container-style u-layout-cell u-left-cell u-radius-15 u-shape-round u-size-20 u-white u-layout-cell-1">
+                                    <div class="u-container-layout u-valign-middle u-container-layout-1">
+                                        <h3 class="u-text u-text-default u-text-3">About Us</h3>
+                                        <p class="u-text u-text-4">We are developers of mission critical softwares</p>
+                                    </div>
+                                </div>
+                                <div class="u-container-style u-image u-layout-cell u-size-20 u-image-1"
+                                    data-image-width="700" data-image-height="878">
+                                    <div class="u-container-layout u-container-layout-2"></div>
+                                </div>
+                                <div
+                                    class="u-align-center u-container-style u-layout-cell u-radius-15 u-right-cell u-shape-round u-size-20 u-white u-layout-cell-3">
+                                    <div class="u-container-layout u-valign-middle u-container-layout-3">
+                                        <h3 class="u-text u-text-default u-text-5">Our Strategy</h3>
+                                        <p class="u-text u-text-6">Focus on efficiency through cloud based servers</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="u-size-30">
+                            <div class="u-layout-row">
+                                <div class="u-container-style u-image u-layout-cell u-left-cell u-size-20 u-image-2"
+                                    data-image-width="1200" data-image-height="800">
+                                    <div class="u-container-layout u-container-layout-4"></div>
+                                </div>
+                                <div
+                                    class="u-align-center u-black u-container-style u-layout-cell u-radius-15 u-shape-round u-size-20 u-layout-cell-5">
+                                    <div class="u-container-layout u-valign-middle u-container-layout-5">
+                                        <h3 class="u-text u-text-default u-text-7">Our Mission</h3>
+                                        <p class="u-text u-text-8">Provide the best administrative capabilities to
+                                            schools</p>
+                                    </div>
+                                </div>
+                                <div class="u-container-style u-image u-layout-cell u-right-cell u-size-20 u-image-3"
+                                    data-image-width="1620" data-image-height="1080">
+                                    <div class="u-container-layout u-container-layout-6"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+        </div>
+    </section>
+
+
+
+    <!-- Footer-->
+    <footer class="py-5 bg-black">
+        <div class="container px-5">
+            <p class="m-0 text-center text-white small">Copyright &copy; SkoolTrak 2021</p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+
+    <script type="module" src="js/main.js"></script>
 </body>
 
 </html>
