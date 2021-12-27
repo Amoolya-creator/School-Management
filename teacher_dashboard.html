@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>School Management System - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <script>
+        //Get School ID if present in local storage
+        school_name = window.localStorage.getItem("school_name")
+        school_city = window.localStorage.getItem("school_city")
+        // if (school_name != null && school_city != null) window.location.assign("login.html")
+    </script>
+   
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="mx-4 p-2 text-center rounded">
+            <h1>Dashboard</h1>
+        </div>
+        <div class="mx-4 p-2 text-center rounded">
+            <h3 id="school">
+                <script>
+                    document.write(school_name + ", " + school_city)
+                </script>
+            </h3>
+        </div>
+        <div id="head" class="row p-2 m-4 bg-primary rounded">
+            <div class="col-6">
+                <h5 class="p-3">Post: <span id="Post"></span></h4>
+            </div>
+            <div class="col">
+                <h5 class="p-3">Name: <span id="Name"></span></h4>
+            </div>
+            <div class="col">
+                <h5 class="p-3">UserID: <span id="UserID"></span></h4>
+            </div>
+        </div>
+
+        <div class="row m-4 p-2 bg-dark rounded ">
+            <div class="col-9 rounded p-2 mb-2 bg-white">
+                <h3>Period-wise Class Assigned to me</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>P1</th>
+                            <th>P2</th>
+                            <th>P3</th>
+                            <th>P4</th>
+                            <th>P5</th>
+                            <th>P6</th>
+                            <th>P7</th>
+                            <th>P8</th>
+                        </tr>
+                    </thead>
+                    <tbody id="Requests">
+                        <td>5A</td>
+                        <td>5B</td>
+                        <td></td>
+                        <td></td>
+                        <td>7A</td>
+                        <td>7B</td>
+                        <td>7D</td>
+                        <td></td>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-3 rounded p-2 mb-2 bg-white">
+                <h3>Feedback</h3>
+                <button class="btn btn-primary d-flex mt-4 mx-auto p-4">Accept</button>
+            </div>>
+            <div class="text-white">This is Time table assigned to me for today by my Section-Incharge for the eight
+                Periods</div>
+            <div class="text-white">
+                To confirm acceptance on my part, click 'Accept'
+            </div>
+
+        </div>
+        <div class="row m-4 p-2 bg-dark rounded ">
+
+            <div class="col p-2 bg-primary rounded ">
+
+                <h3 class="rounded">Raise Request</h3>
+
+                <div class="row">
+                    <div class="col-2 form-group">
+                        <h6>Action</h6>
+                        <select id="action" class="form-select" type="text">
+                            <option name="Check">Check</option>
+                            <option name="Repair">Repair</option>
+                            <option name="Clean">Clean</option>
+                            <option name="Add">Add</option>
+                            <option name="Remove">Remove</option>
+                            <option name="Replace">Replace</option>
+                            <option name="Indent">Indent</option>
+                        </select>
+                    </div>
+                    <div class="col-2 form-group">
+                        <h6>Object</h6>
+                        <input id="object" class="form-control" type="text"></input>
+                    </div>
+                    <div class="col-2 form-group">
+                        <h6>Place</h6>
+                        <input id="place" class="form-control" type="text"></input>
+                    </div>
+                    <div class="col-2">
+                        <h6>Priority</h6>
+                        <select id="priority" class="form-select">
+                            <option class="selected" name="Routine">Routine</option>
+                            <option class="text-warning" name="Priority">Priority</option>
+                            <option class="text-danger" name="Urgent">Urgent</option>
+                            <option class="text-danger" name="Immediate">Immediate</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <h6>To</h6>
+                        <select id="send_to" class="form-control">
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="col-1">
+                        <h6>&nbsp;</h6>
+                        <button id="send_btn" class="btn btn-primary">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row rounded m-4">
+            <div class="col text-center">
+                <button class="btn btn-primary">Settings</button>
+            </div>
+            <div class="col text-center">
+                <button class="btn btn-primary">Logout</button>
+            </div>
+        </div>
+
+        <script type="module" src="./js/dashboard.js"></script>
+</body>

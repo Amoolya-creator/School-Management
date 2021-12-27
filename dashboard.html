@@ -12,7 +12,7 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
     <script>
         //Get School ID if present in local storage
         school_name = window.localStorage.getItem("school_name")
@@ -23,8 +23,8 @@
 
 <body class="bg-info">
     <div class="container-fluid">
-        <div class="mx-4 p-2 text-center rounded" >
-        <h1>Dashboard</h1>
+        <div class="mx-4 p-2 text-center rounded">
+            <h1>Dashboard</h1>
         </div>
         <div class="mx-4 p-2 text-center rounded">
             <h3 id="school">
@@ -45,10 +45,24 @@
             </div>
         </div>
 
-        <div class="row p-2 m-4 bg-dark rounded ">
+        <div class="row m-4 p-2 bg-dark rounded ">
+            <div class="col-4">
+                <div id="Staff" class="h-100 p-2 bg-info rounded">
+                    <h3>My Staff</h3>
+                    <table class="table">
+                        <thead>
+                            <th>Category</th>
+                            <th>UserID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody id="My_Staff"></tbody>
+                    </table>
+                </div>
+            </div>
             <div class="col-8">
-                <div class=" rounded p-2 mb-2 bg-white">
-                    <h3>Pending Requests</h3>
+                <div class="row rounded p-2 mb-2 bg-white">
+                    <h3>Incoming Requests</h3>
                     <table class="table">
                         <thead>
                             <tr>
@@ -62,73 +76,33 @@
                         </thead>
                         <tbody id="Requests"></tbody>
                     </table>
-
                 </div>
-            </div>
-            <div class="col-4">
-                <div id="Staff" class="bg-info rounded p-2">
-                    <h3>My Staff</h3>
-                    <table class="table">
-                        <thead>
-                            <th>Category</th>
-                            <th>UserID</th>
-                            <th>Name</th>
-                            <th>Status</th>
-                        </thead>
 
-                    </table>
+                <div class="row p-2 b-2 bg-primary rounded">
+                    <h3 class="rounded">Realtime Status</h3> 
+                    <div class="bg-white rounded">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Work Assigned</th>
+                                    <th>To whom</th>
+                                    <th>Place</th>
+                                    <th>Time</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="Work_Assigned">       
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row p-2 m-4 bg-primary rounded">
-            <div>
-                <h3 class="rounded">Realtime Status</h3>
-            </div>
-            <div id="Staff" class="bg-white m-3 rounded">
-                <table class="table table-striped table-hover m-2 ">
-                    <thead>
-                        <tr>
-                            <th>Work Assigned</th>
-                            <th>To whom</th>
-                            <th>Place</th>
-                            <th>Time</th>
-                            <th>Priority</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Check Fan</td>
-                            <td>Amoolya</td>
-                            <td>Class 6B</td>
-                            <td>10:30 AM</td>
-                            <td>Routine</td>
-                            <td>Pending</td>
-                        </tr>
-                        <tr>
-                            <td>Check Bulb</td>
-                            <td>Amoolya</td>
-                            <td>Class 7D</td>
-                            <td>10:40 AM</td>
-                            <td>Routine</td>
-                            <td>Pending</td>
-                        </tr>
-                        <tr>
-                            <td>Check Bulb</td>
-                            <td>Amoolya</td>
-                            <td>Class 7D</td>
-                            <td>10:40 AM</td>
-                            <td>Routine</td>
-                            <td>Pending</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
 
         <div class="row p-2 m-4 bg-primary rounded ">
             <div class="rounded">
-            <h3>Send Instructions to Staff</h3>
+                <h3>Assign work to Staff</h3>
             </div>
             <div class="col-2 form-group">
                 <h6>Action</h6>
@@ -162,8 +136,7 @@
             </div>
             <div class="col-2">
                 <h6>To</h6>
-                <select id="send_to" class="form-control">
-                    <option></option>
+                <select id="send_to" class="form-control">                   
                 </select>
             </div>
             <div class="col-1">
@@ -171,18 +144,21 @@
                 <button id="send_btn" class="btn btn-primary">Send</button>
             </div>
         </div>
-        
+
         <div class="row bg-light rounded p-4">
             <div class="col text-center">
                 <button class="btn btn-primary">Send Report to Superior</button>
             </div>
             <div class="col text-center">
-                <button class="btn btn-primary">Settings</button>
+                <button class="btn btn-primary" onclick="window.location.assign('./add_staff.html')">Add Staff</button>
+            </div>
+            <div class="col text-center">
+                <button class="btn btn-primary" onclick="window.location.assign('./facility_infrastructure.html')">Set Infrastructure</button>
             </div>
             <div class="col text-center">
                 <button class="btn btn-primary">Logout</button>
             </div>
         </div>
     </div>
-    <script type="module" src="./dashboard.js"></script>
+    <script type="module" src="./js/dashboard.js"></script>
 </body>

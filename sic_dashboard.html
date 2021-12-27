@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>School Management System - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <script>
+        //Get School ID if present in local storage
+        school_name = window.localStorage.getItem("school_name")
+        school_city = window.localStorage.getItem("school_city")
+        // if (school_name != null && school_city != null) window.location.assign("login.html")
+    </script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="mx-4 p-2 text-center rounded">
+            <h1>Dashboard</h1>
+        </div>
+        <div class="mx-4 p-2 text-center rounded">
+            <h3 id="school">
+                <script>
+                    document.write(school_name + ", " + school_city)
+                </script>
+            </h3>
+        </div>
+        <div id="head" class="row p-2 m-4 bg-primary rounded">
+            <div class="col-6">
+                <h5 class="p-3">Post: <span id="Post"></span></h4>
+            </div>
+            <div class="col">
+                <h5 class="p-3">Name: <span id="Name"></span></h4>
+            </div>
+            <div class="col">
+                <h5 class="p-3">UserID: <span id="UserID"></span></h4>
+            </div>
+        </div>
+
+        <div class="row m-4 p-2 bg-dark rounded ">
+            <div class="col-md-4">
+                <div id="My Teachers" class="h-100 p-2 bg-info rounded">
+                    <h3>My Teachers</h3>
+                    <table class="table">
+                        <thead>
+                            <th>Category</th>
+                            <th>UserID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody id="My Teachers"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row rounded h-100 p-2 mb-2 bg-white">
+                    <h3>Incoming Requests</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>From</th>
+                                <th>Action</th>
+                                <th>Object</th>
+                                <th>Place</th>
+                                <th>Priority</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="Requests"></tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="col row p-2 m-2 bg-primary rounded ">
+                <div class="rounded">
+                    <h3>Set Time Table for Teachers</h3>
+                </div>
+                <table class=" col bg-info p-2 m-2 rounded table table-striped table-hover">
+                    <thead>
+                        <th>Teacher</th>
+                        <th>UserID</th>
+                        <th>Subject</th>
+                        <th> P1</th>
+                        <th> P2</th>
+                        <th> P3</th>
+                        <th> P4</th>
+                        <th> P5</th>
+                        <th> P6</th>
+                        <th> P7</th>
+                        <th> P8</th>
+                    </thead>
+                    <tbody>
+                        <td>Archana</td>
+                        <td>T1</td>
+                        <td>Maths</td>
+                        <td><input class="text" value="5A" maxlength=3 size=3></td>
+                        <td><input class="text" value="5A" maxlength=3 size=3></td>
+                        <td><input class="text" value="5A" maxlength=3 size=3></td>
+                        <td><input class="text" value="5A" maxlength=3 size=3></td>
+                        <td><input class="text" value="5A" maxlength=3 size=3></td>
+                        <td><input class="text" value="5A" maxlength=3 size=3></td>
+                        <td><input class="text" value="5A" maxlength=3 size=3></td>
+                        <td><input class="text" value="5A" maxlength=3 size=3></td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row m-4 p-2">
+            <div class="col text-center">
+                <button class="btn btn-primary">Send Report to Superior</button>
+            </div>
+            <div class="col text-center">
+                <button class="btn btn-primary">Settings</button>
+            </div>
+            <div class="col text-center">
+                <button class="btn btn-primary">Logout</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="module" src="./js/dashboard.js"></script>
+</body>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<head>
+    <title>School Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>Facility Infrastructure</h1>
+
+        <div class="row form-group">
+            <input id="className" type="text" maxlength=3 class="col form-control">
+            <label id="classTeacher" class="col form-label">me </label>
+            <label id="classTeacherUserID" class="col form-label">my UserID</label>
+        </div>
+        <div>
+            <h3>Please Add Facility Infrastructure here</h3>
+            <h6 class="text-info">Enter Name of Material followed by Quantity</h6>
+        </div>
+        <div id="tab1"></div>
+        <button onclick="addRow('',1)" class="col btn btn-primary">Add Row</button>
+        <div class="m-3 row">
+            <button onclick="saveData()" class="col-3 offset-2 btn btn-primary">Save Infrastructure</button>
+            <button onclick="window.location.assign('./dashboard.html')" class="col-3 offset-3 btn btn-primary">Back</button>
+        </div>
+
+    </div>
+
+    <script type="module" src="./js/facility_infra.js"></script>
+</body>

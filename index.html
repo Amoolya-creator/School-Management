@@ -57,8 +57,7 @@
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#loginsignup">Sign Up</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#loginsignup">Log In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#login">Log In</a></li>
                     <li class="nav-item"><a class="nav-link" href="#scroll">Features</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                 </ul>
@@ -85,16 +84,17 @@
                 document.write("<h3 class='m-4 p-4 text-center'>Welcome to " + school_name + ", " + school_city + "</h3>\
                 <h6 class='m-4 p-4 text-center'>Not my school. Click <a onclick=window.localStorage.clear() href='./config_school.html'>here</a></h6>")
             }
-            else { 
-                setTimeout(()=>{$("#loginsignup").hide(10000);})
-                setTimeout(() => {                   
+            else {
+                setTimeout(() => { $("#login").hide(10000); })
+                setTimeout(() => {
                     alert("We have detected that you are running this software for the first time on this machine.\
- Please follow instructions to config your machine with your school")
-                window.location="./config_school.html";}, 15000)                
+ Please enter your School Name and City so that the system can check your school database")
+                    window.location = "./config_school.html";
+                }, 15000)
             }
         </script>
     </div>
-    <section id="loginsignup">
+    <section id="login">
         <div class="limiter">
             <div class="container-login100">
                 <div class="wrap-login100">
@@ -117,28 +117,28 @@
 
                         <div class="flex-sb-m w-full p-t-3 p-b-32">
                             <div class="contact100-form-checkbox">
-                            <input class="input-checkbox100" id="ckb1" onclick="fx1()" type="checkbox" name="remember-me">
-                                <label class="label-checkbox100" for="ckb1" >
+                                <input class="input-checkbox100" id="ckb1" onclick="fx1()" type="checkbox"
+                                    name="remember-me">
+                                <label class="label-checkbox100" for="ckb1">
                                     Remember me
                                 </label>
                                 <script>
-                                    Email =  window.localStorage.getItem("Email")
+                                    Email = window.localStorage.getItem("Email")
                                     Password = window.localStorage.getItem("Password")
-                                    if (!(Email=="" && Password =="")) $("#ckb1").click()
+                                    if (!(Email == "" && Password == "")) $("#ckb1").click()
                                     $("#email").click().val(Email)
                                     $("#password").click().val(Password)
 
                                     function fx1() {
                                         if ($("#ckb1").is(':checked')) {
-                                            window.localStorage.setItem("Email",$("#email").val())
-                                            window.localStorage.setItem("Password",$("#password").val())
+                                            window.localStorage.setItem("Email", $("#email").val())
+                                            window.localStorage.setItem("Password", $("#password").val())
                                         }
-                                        else{
+                                        else {
                                             window.localStorage.removeItem("Email")
                                             window.localStorage.removeItem("Password")
                                         }
                                     }
-
                                 </script>
                             </div>
 
@@ -148,20 +148,11 @@
                                 </a>
                             </div> -->
                         </div>
-
-
                         <div class="container-login100-form-btn">
                             <button class="login100-form-btn" type="submit">
                                 Login
                             </button>
                         </div>
-                        <br />
-                        <div class="container-login100-form-btn">
-                            <button id="subtn" class="login100-form-btn" type="button">
-                                Sign Up
-                            </button>
-                        </div>
-
                     </form>
 
                     <div class="login100-more" style="background-image: url('./assets/img/admin1.jpg');">
@@ -169,10 +160,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
 
         <!--===============================================================================================-->
         <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -204,7 +191,7 @@
                         <h2 class="display-4">Manage Infrastructure</h2>
                         <p>Manage the school infrastructure. Supervisors can see in realtime what is available, what is
                             missing
-                            and can order for items to be indented.
+                            and can order for items to be purchased.
                         </p>
                     </div>
                 </div>
@@ -315,10 +302,9 @@
     </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
-
-    <script type="module" src="js/main.js"></script>
+ 
+    <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/index.js"></script>
 </body>
 
 </html>
