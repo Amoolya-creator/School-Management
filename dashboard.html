@@ -17,7 +17,11 @@
         //Get School ID if present in local storage
         school_name = window.localStorage.getItem("school_name")
         school_city = window.localStorage.getItem("school_city")
-        // if (school_name != null && school_city != null) window.location.assign("login.html")
+        var ME = window.localStorage.getItem("ME")
+        if (school_name ==undefined || school_city==undefined || ME ==undefined) {
+            alert ("You are not authorized to visit this page")
+            window.location.assign("./index.html")
+        }        
     </script>
 </head>
 
@@ -68,8 +72,8 @@
                             <tr>
                                 <th>From</th>
                                 <th>Action</th>
-                                <th>Object</th>
-                                <th>Place</th>
+                                <th>Material</th>
+                                <th>Location</th>
                                 <th>Priority</th>
                                 <th>Time</th>
                             </tr>
@@ -82,17 +86,15 @@
                     <h3 class="rounded">Realtime Status</h3> 
                     <div class="bg-white rounded">
                         <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Work Assigned</th>
-                                    <th>To whom</th>
-                                    <th>Place</th>
-                                    <th>Time</th>
-                                    <th>Priority</th>
-                                    <th>Status</th>
-                                </tr>
+                            <thead class="row">                                
+                                    <th class="col-2">Work Assigned</th>
+                                    <th class="col-2">To whom</th>
+                                    <th class="col-2">Place</th>
+                                    <th class="col-2">Time</th>
+                                    <th class="col-2">Priority</th>
+                                    <th class="col-2">Status</th> 
                             </thead>
-                            <tbody id="Work_Assigned">       
+                            <tbody id="Work_Assigned" height=200px >       
                             </tbody>
                         </table>
                     </div>
@@ -146,17 +148,15 @@
         </div>
 
         <div class="row bg-light rounded p-4">
-            <div class="col text-center">
-                <button class="btn btn-primary">Send Report to Superior</button>
-            </div>
+           
             <div class="col text-center">
                 <button class="btn btn-primary" onclick="window.location.assign('./add_staff.html')">Add Staff</button>
             </div>
             <div class="col text-center">
-                <button class="btn btn-primary" onclick="window.location.assign('./facility_infrastructure.html')">Set Infrastructure</button>
+                <button class="btn btn-primary" onclick="window.location.assign('./facility_infrastructure.html')">Set / View Infrastructure</button>
             </div>
             <div class="col text-center">
-                <button class="btn btn-primary">Logout</button>
+                <button class="btn btn-primary" onclick="{window.localStorage.removeItem('ME');window.location.assign('./index.html')}">Logout</button>
             </div>
         </div>
     </div>

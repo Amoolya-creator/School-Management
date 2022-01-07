@@ -153,11 +153,34 @@
                                 Login
                             </button>
                         </div>
+                        <div>
+                            <h5 class="m-3">Are you school staff ? Click
+                                <a class="toggle text-primary h5" data-bs-toggle="collapse" href="#in">
+                                    here</a>
+                            </h5>
+                            <div id="in" class="collapse">
+                                <label for="staffer">Enter with your Staff-ID</label>
+                                <div class="row form-inline">
+                                    <input id="staffer" class="col-8 form-control" placeholder="Staff-ID">
+                                    <script>
+                                        function go() {
+                                            var staffID = $("#staffer").val().toLowerCase()
+                                            window.localStorage.setItem("staffID", staffID);
+                                            window.localStorage.removeItem("ME")
+                                            if (staffID.slice(0, 6) == "staff-") window.location.assign("./staff_dashboard.html")
+                                            if (staffID.slice(0, 8) == "teacher-") window.location.assign("./teacher_dashboard.html")
+                                        }
+                                    </script>
+                                    <a id="go" class="btn btn-primary col-3 offset-1" onclick="go()">Go</a>
+                                </div>
+                            </div>
+                        </div>
                     </form>
 
                     <div class="login100-more" style="background-image: url('./assets/img/admin1.jpg');">
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -189,9 +212,9 @@
                 <div class="col-lg-6 order-lg-1">
                     <div class="p-5">
                         <h2 class="display-4">Manage Infrastructure</h2>
-                        <p>Manage the school infrastructure. Supervisors can see in realtime what is available, what is
-                            missing
-                            and can order for items to be purchased.
+                        <p>Manage the school's infrastructure. Supervisors can see in realtime what is available, what
+                            is
+                            missing.They can ask for repairs and replacements.
                         </p>
                     </div>
                 </div>
@@ -235,6 +258,39 @@
             </div>
         </div>
     </section>
+    
+    <section>
+        <div class="bg-secondary text-white">
+            <form action="https://formspree.io/f/xpzbwjaw" method="POST">
+                <h1 class="text-center text-dark text-bolder p-5 m-2">Contact Us</h1>
+                <h5  class="text-center p-2"> If you have any queries or need support please feel free to drop us a message.</h5>
+                <div class="bg-dark m-2 rounded p-3">
+                    <div class="row form-group">
+                    <div class="col-6">
+                        <label class="col form-label">
+                            Your Name:
+                            <input class="form-control" type="text" name="_name">
+                        </label>
+                        <label class="col form-label">
+                            Your email:
+                            <input class="form-control" type="email" name="_replyto">
+                        </label>
+                    </div>
+                    <label class="col form-label">
+                        Your message:
+                        <textarea class="form-control" name="message" rows=4></textarea>
+                    </label>
+                </div>
+                </div>
+                <center>
+                    <button class="p-3 m-2 btn btn-primary" type="submit">Send Message</button>
+                </center>
+            </form>
+        </div>
+        <div class="text-center m-3 ">
+            You can also write to us at: <a href="mailto:schooltrak@gmail.com">schooltrak@gmail.com</a>
+        </div>
+    </section>
 
     <section class="u-align-center u-clearfix u-palette-1-base u-section-3" id="about">
         <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
@@ -267,6 +323,7 @@
                         </div>
                         <div class="u-size-30">
                             <div class="u-layout-row">
+
                                 <div class="u-container-style u-image u-layout-cell u-left-cell u-size-20 u-image-2"
                                     data-image-width="1200" data-image-height="800">
                                     <div class="u-container-layout u-container-layout-4"></div>
@@ -302,7 +359,7 @@
     </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
- 
+
     <script type="module" src="./js/main.js"></script>
     <script type="module" src="./js/index.js"></script>
 </body>

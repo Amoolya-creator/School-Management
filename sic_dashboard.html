@@ -14,10 +14,16 @@
 
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <script>
+            
         //Get School ID if present in local storage
         school_name = window.localStorage.getItem("school_name")
         school_city = window.localStorage.getItem("school_city")
-        // if (school_name != null && school_city != null) window.location.assign("login.html")
+        var ME = window.localStorage.getItem("ME")
+        if (school_name ==undefined || school_city==undefined || ME ==undefined) {
+            alert ("You are not authorized to visit this page")
+            window.location.assign("./index.html")
+        }        
+   
     </script>
 </head>
 
@@ -35,7 +41,7 @@
         </div>
         <div id="head" class="row p-2 m-4 bg-primary rounded">
             <div class="col-6">
-                <h5 class="p-3">Post: <span id="Post"></span></h4>
+                <h5 class="p-3">Section-Incharge: <span id="Post"></span></h4>
             </div>
             <div class="col">
                 <h5 class="p-3">Name: <span id="Name"></span></h4>
@@ -47,16 +53,16 @@
 
         <div class="row m-4 p-2 bg-dark rounded ">
             <div class="col-md-4">
-                <div id="My Teachers" class="h-100 p-2 bg-info rounded">
+                <div class="h-100 p-2 bg-info rounded">
                     <h3>My Teachers</h3>
                     <table class="table">
                         <thead>
-                            <th>Category</th>
+                            <th>Subject</th>
                             <th>UserID</th>
                             <th>Name</th>
                             <th>Status</th>
                         </thead>
-                        <tbody id="My Teachers"></tbody>
+                        <tbody id="My_Teachers"></tbody>
                     </table>
                 </div>
             </div>
@@ -68,8 +74,8 @@
                             <tr>
                                 <th>From</th>
                                 <th>Action</th>
-                                <th>Object</th>
-                                <th>Place</th>
+                                <th>Material</th>
+                                <th>Location</th>
                                 <th>Priority</th>
                                 <th>Time</th>
                             </tr>
@@ -98,35 +104,32 @@
                         <th> P7</th>
                         <th> P8</th>
                     </thead>
-                    <tbody>
-                        <td>Archana</td>
-                        <td>T1</td>
-                        <td>Maths</td>
-                        <td><input class="text" value="5A" maxlength=3 size=3></td>
-                        <td><input class="text" value="5A" maxlength=3 size=3></td>
-                        <td><input class="text" value="5A" maxlength=3 size=3></td>
-                        <td><input class="text" value="5A" maxlength=3 size=3></td>
-                        <td><input class="text" value="5A" maxlength=3 size=3></td>
-                        <td><input class="text" value="5A" maxlength=3 size=3></td>
-                        <td><input class="text" value="5A" maxlength=3 size=3></td>
-                        <td><input class="text" value="5A" maxlength=3 size=3></td>
+                    <tbody id="timetable">
+
+
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="row m-4 p-2">
             <div class="col text-center">
-                <button class="btn btn-primary">Send Report to Superior</button>
+                <button id="send_btn" class="btn btn-primary" >Send Timetable to Teacher(s)</button>
             </div>
             <div class="col text-center">
-                <button class="btn btn-primary">Settings</button>
+                <button class="btn btn-primary" onclick="window.location.assign('./add_teacher.html')">Add
+                    Teacher(s)</button>
             </div>
             <div class="col text-center">
-                <button class="btn btn-primary">Logout</button>
+                <button class="btn btn-primary" onclick="window.location.assign('./class_infrastructure.html')">Set / View
+                    Class Infrastructure</button>
+            </div>
+            <div class="col text-center">
+                <button class="btn btn-primary"
+                    onclick="{window.localStorage.removeItem('ME');window.location.assign('./index.html')}">Logout</button>
             </div>
         </div>
 
     </div>
 
-    <script type="module" src="./js/dashboard.js"></script>
+    <script type="module" src="./js/sic_dashboard.js"></script>
 </body>

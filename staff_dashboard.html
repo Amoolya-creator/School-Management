@@ -13,12 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="./css/style.css">
-    <script>
-        //Get School ID if present in local storage
-        school_name = window.localStorage.getItem("school_name")
-        school_city = window.localStorage.getItem("school_city")
-        // if (school_name != null && school_city != null) window.location.assign("login.html")
-    </script>
+
 </head>
 
 <body>
@@ -29,6 +24,8 @@
         <div class="mx-4 p-2 text-center rounded">
             <h3 id="school">
                 <script>
+                    var school_name = window.localStorage.getItem("school_name")
+                    var school_city = window.localStorage.getItem("school_city")
                     document.write(school_name + ", " + school_city)
                 </script>
             </h3>
@@ -45,29 +42,20 @@
             </div>
         </div>
 
-        <div class="row m-4 p-2 bg-dark rounded ">
-            <div class="col-8 rounded p-2 mb-2 bg-white">
-                <h3>Incoming Jobs</h3>
+        <div class="m-4 p-2 bg-dark rounded ">
+            <div class="rounded p-2 mb-2 bg-white">
+                <div class="row p-2 mb-2">
+                    <h3 class="col-7">Incoming Jobs </h3>
+                    <h3 class="col-4 offset-1">Feedback</h3>
+                </div>
                 <table class="table">
                     <thead>
                         <tr>
                             <th>From</th>
                             <th>Action</th>
-                            <th>Object</th>
-                            <th>Place</th>
+                            <th>Location</th>
                             <th>Priority</th>
                             <th>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody id="Requests"></tbody>
-                </table>
-                <div id="no_jobs" class="text-center">No Jobs Pending</div>
-            </div>
-            <div class="col-4 rounded p-2 mb-2 bg-white">
-                <h3>Feedback</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
                             <th>Ack<sup>#</sup></th>
                             <th>ETC<sup>*</sup></th>
                             <th>Completed</th>
@@ -76,6 +64,7 @@
                     <tbody id="Requests"></tbody>
                 </table>
             </div>
+
             <div class="text-white">#Ack = Please check the checkbox to acknowledge the task assigned</div>
             <div class="text-white">*ETC = Estimated time to completion (optional)</div>
             <div class="text-white">Completed = Please check the checkbox on work completion</div>
@@ -91,21 +80,18 @@
                     <div class="col-2 form-group">
                         <h6>Action</h6>
                         <select id="action" class="form-select" type="text">
-                            <option name="Check">Check</option>
                             <option name="Repair">Repair</option>
-                            <option name="Clean">Clean</option>
-                            <option name="Add">Add</option>
+                            <option name="Request new">Request new</option>
                             <option name="Remove">Remove</option>
                             <option name="Replace">Replace</option>
-                            <option name="Indent">Indent</option>
-                            </select>
+                        </select>
                     </div>
                     <div class="col-2 form-group">
-                        <h6>Object</h6>
+                        <h6>Material</h6>
                         <input id="object" class="form-control" type="text"></input>
                     </div>
                     <div class="col-2 form-group">
-                        <h6>Place</h6>
+                        <h6>Location</h6>
                         <input id="place" class="form-control" type="text"></input>
                     </div>
                     <div class="col-2">
@@ -119,9 +105,9 @@
                     </div>
                     <div class="col-2">
                         <h6>To</h6>
-                        <select id="send_to" class="form-control">
-                            <option></option>
-                        </select>
+                        <label id="send_to" class="form-control">
+                            My Supervisor
+                        </label>
                     </div>
                     <div class="col-1">
                         <h6>&nbsp;</h6>
@@ -131,14 +117,10 @@
             </div>
         </div>
 
-        <div class="row rounded m-4">
-            <div class="col text-center">
-                <button class="btn btn-primary">Settings</button>
-            </div>
-            <div class="col text-center">
-                <button class="btn btn-primary">Logout</button>
-            </div>
+        <div class="rounded m-4 text-center">
+            <a class="btn btn-primary"
+                onclick="{window.localStorage.removeItem('staffID');window.location.assign('./index.html')}">Exit</a>
         </div>
 
-        <script type="module" src="./js/dashboard.js"></script>
+        <script type="module" src="./js/staff_dashboard.js"></script>
 </body>

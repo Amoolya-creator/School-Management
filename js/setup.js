@@ -45,7 +45,8 @@ function createPrincipal() {
         Email: $('#principal_email').val(),
         Password: hashCode($('#principal_name').val()),
         UserID: "Principal",
-        Supervises: "Vice Principal, All Section Incharges"
+        Supervises: "Vice Principal, All Section Incharges",
+        Status:"Available"
     }
    signup($('#principal_email').val(),hashCode($('#principal_name').val()),"Principal",Principal)
 }
@@ -59,7 +60,8 @@ function createVicePrincipal() {
         Email: $('#vice_principal_email').val(),
         Password: hashCode($('#vice_principal_name').val()),
         UserID: "Vice Principal",
-        Supervises: "All Supervisors"
+        Supervises: "All Supervisors",
+        Status:"Available"
     }
     signup($('#vice_principal_email').val(),hashCode($('#vice_principal_name').val()),"Vice Principal",Vice_Principal)
 }
@@ -80,6 +82,7 @@ function createSectionIncharges() {
                 Supervises: "Teachers",
                 Sections_in_class: $('#' + e + '_sections').val(),
                 No_of_students_per_class: $('#' + e + '_students').val(),
+                Status:"Available"
             }
             signup($('#' + e + '_email').val(),hashCode($('#' + e + '_name').val()),"Section-"+ele, Section_Incharge);
         }

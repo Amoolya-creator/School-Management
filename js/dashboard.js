@@ -5,8 +5,7 @@ import {
     ref,
     set,
     onValue,
-    push,
-    child
+    push
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 var school_name = window.localStorage.getItem("school_name")
@@ -25,6 +24,7 @@ onValue(ref(db, Path), (snap) => {
         $("#Name").html(Manpower[ME].Name)
         $("#UserID").html(Manpower[ME].UserID)
         Manpower_under_me_fx();
+        start_outbox_listner();
         start_post_listener();
     }
 })
@@ -38,11 +38,8 @@ function Manpower_under_me_fx() {
     Manpower_under_me = []
     for (var Individual in Manpower) {
         if (ME == Individual) continue;
-
-        if ((ME == "Vice Principal") && (Individual == "Principal")) continue;
-        if ((ME.slice(0, 10) == "Supervisor") && (Individual.slice(0, 5) != "Staff")) continue;
-        if ((ME.slice(0, 7) == "Section") && (Individual.slice(0, 6) != "Teacher")) continue;
-
+        if (ME=="Vice Principal" && (Individual=="Principal" || Manpower[Individual].Post=="Section Incharge" )) continue;
+        if (Manpower[ME].Post=="Supervisor" && Individual.slice(0,5)!="staff") continue;
         Manpower_under_me.push(Individual);
     }
     ///////  Manpower Status ///////
@@ -76,22 +73,40 @@ $("#send_btn").on('click', () => {
         Object: $("#object").val(),
         Place: $("#place").val(),
         Priority: $("#priority").val(),
-        Time: T
+        Time: T,
+        Status:"Pending"
     }
     set(ref(db, Post_Path + '/' + newKey), Post).then(() => {
         alert("Work Sent to The Staff");
+        //save copy of work-sent
+        Post["To"]=$("#send_to").val()
+        Post_Path = '/' + school_name + school_city + '/outbox/' + Manpower[ME].UserID
+        newKey = push(ref(db, Post_Path)).key
+        set(ref(db,Post_Path+'/'+newKey),Post)
 
-        // need to check recursively for all prior jobs
-        var tt = ""
-        tt += '<tr><td>' + $("#action").val() + " " + $("#object").val() + '</td>\
-                <td>'+ Manpower[$("#send_to").val()].Name + ' ('+$("#send_to").val()+ ')</td>\
-                <td>'+ $("#place").val() + '</td>\
-                <td>'+ T.slice(15, 24) + '</td>\
-                <td>'+ $("#priority").val() + '</td>\
-                <td>Pending</td>'
-        $("#Work_Assigned").append(tt)
     })
 })
+///////// Start Outbox Listener ///////
+function start_outbox_listner(){
+    var outboxPath = '/' + school_name + school_city + '/outbox/' + Manpower[ME].UserID
+    onValue(ref(db,outboxPath),(snap)=>{
+        if (snap.exists()){
+            var SentMessages= snap.val()
+            var tt=''
+            for (var msg in SentMessages){
+                var data = SentMessages[msg]
+                tt += '<tr><td>'+data.Action+ " " +data.Object+'<td>'
+                tt += '<td>'+Manpower[data.To].Name+ " (" +data.To+')<td>'
+                tt += '<td>'+data.Place+'<td>'
+                tt += '<td>'+data.Time.slice(15,24)+'<td>'
+                tt += '<td>'+data.Priority+'<td>'
+                tt += '<td>'+data.Status+'</td></tr>'
+
+            }
+            $("#Work_Assigned").html(tt)
+        }
+    })
+}
 
 ///////////// Start Post Listener//////////
 

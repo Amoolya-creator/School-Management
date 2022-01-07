@@ -34,52 +34,94 @@
     <div class="container">
 
       <div class="section-title">
-        <h2>Setup</h2>
+        <h3 class="m-3 p-3 text-center text-warning">This ADMIN account is ONE-TIME USE ONLY and it would self delete.
+        </h3>
         <p>Please follow proper sequential order to setup your school's basic information</p>
       </div>
 
       <div class="row">
-        <div class="col-lg-3 col-md-6 icon-box">
-          <div class="icon"><img src="https://img.icons8.com/ios-glyphs/50/5C9F24/gear.png" /></div>
-          <h4 class="title"><a href="setup.html">1. Main Setup</a></h4>
-          <p class="description">Sets up Main details.</p>
+
+        <div class="card m-2" style="width:45%">
+          <div class="card-header h3">
+            <img src="https://img.icons8.com/ios-glyphs/50/5C9F24/gear.png">
+            <span class="card-title text-primary">1. Main Setup</span>
+          </div>
+          <img style="width:50%" src="./assets/img/setup.png">
+          <div class="card-body">
+            <p class="card-text">Sets up Main details.</p>
+          </div>
+          <div class="card-footer">
+            <a href="./setup.html" class="btn btn-primary">Main Setup</a>
+          </div>
         </div>
-        <div class="col-lg-3 col-md-6 icon-box">
-          <div class="icon"><img src="https://img.icons8.com/ios/50/5C9F24/gears.png" /></div>
-          <h4 class="title"><a href="facilities.html">2. Facilities Setup</a></h4>
-          <p class="description">Sets up facilities available in the school.
-          </p>
+
+        <div class="card m-2" style="width:45%">
+          <div class="card-header h3">
+            <img src="https://img.icons8.com/ios/50/5C9F24/gears.png" />
+            <span class="card-title text-primary">2. Facilities Setup</span>
+          </div>
+          <img style="width:50%" src="./assets/img/maintenance-facility-management.jpg">
+          <div class="card-body">
+            <p class="card-text">Sets up facilities available in the school.</p>
+          </div>
+          <div class="card-footer">
+            <a href="./facilities.html" class="btn btn-primary">Facilities Setup</a>
+          </div>
         </div>
-        <div class="col-lg-3 col-md-6 icon-box">
-          <div class="icon"><img src="https://img.icons8.com/ios/50/000000/men-age-group-5.png" /></div>
-          <h4 class="title"><a href="manpower.html">3. Manpower Available</a></h4>
-          <p class="description">Review man-power in the school.
-            Please print the information as it would be needed for initial login by your personnel.
-          </p>
+
+        <div class="card m-2" style="width:45%">
+          <div class="card-header h3">
+            <img src="https://img.icons8.com/ios/50/000000/men-age-group-5.png" />
+            <span class="card-title text-primary">3. View Manpower</span>
+          </div>
+          <img style="width:50%" src="./assets/img/manpower.jfif">
+          <div class="card-body">
+            <p class="card-text">View man-power in the school.</p>
+            <p class="text-danger">Please print the information as it would be needed for initial login by your
+              personnels.
+            </p>
+          </div>
+          <div class="card-footer">
+            <a href="./manpower.html" class="btn btn-primary">View Manpower</a>
+          </div>
         </div>
+
         <script>
           function CloseAccount() {
             var MS = window.localStorage.getItem("MainSetup")
             var FS = window.localStorage.getItem("FacilitiesSetup")
             var PS = window.localStorage.getItem("Printed")
-            if (MS && FS && PS) { window.location.assign('./index.html') }
+            if (MS && FS && PS) {
+              window.localStorage.removeItem("MainSetup")
+              window.localStorage.removeItem("FacilitiesSetup")
+              window.localStorage.removeItem("Printed")
+              window.location.assign('./index.html')
+            }
             else {
               alert("All The Steps Of Initial School Configuration Are Not Completed. Please complete all the steps to proceed further")
             }
           }
         </script>
-        <div class="col-lg-3 col-md-6 icon-box">
-          <div class="icon"><img src="https://img.icons8.com/ios-filled/50/000000/finish-flag.png" /></div>
-          <h4 class="title"><button id="Finish" class="btn-danger" onclick="CloseAccount()">4. Finish Setup</button>
-          </h4>
-          <p class="description">Finishes the Setup and destroys this Admin account.
-            <span class="text-primary">Please BE CAREFUL.</span>
-          </p>
+
+
+        <div class="card m-2" style="width:45%">
+          <div class="card-header h3">
+            <img src="https://img.icons8.com/ios-filled/50/000000/finish-flag.png" />
+            <span class="card-title text-primary">4. Finish Setup</span>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Finishes the Setup and destroys this Admin account.</p>
+            <p class="text-danger">Please BE CAREFUL.</p>
+
+          </div>
+          <div class="card-footer">
+            <button id="Finish" class="btn btn-danger" onclick="CloseAccount()">Finish Setup</button>
+          </div>
+
         </div>
+
       </div>
-      <div>
-        <h3 class="m-3 p-3 text-center">This ADMIN account is ONE-TIME USE ONLY and it would self delete.</h3>
-      </div>
+
     </div>
   </section>
 </body>

@@ -6,11 +6,14 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    onAuthStateChanged
+    updatePassword
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
 import {
-    getDatabase, ref, set, onValue
+    getDatabase,
+    ref,
+    set,
+    onValue
 
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
@@ -31,21 +34,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 var ME, Manpower, user
-
-function statechanged() {
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
-            var uid = user.uid;
-            console.log("success" + uid);
-            // ...
-        } else {
-            // User is signed out
-            // ...
-        }
-    });
-}
 
 function signup(email, password, Manpower_name, Data) {
     var school_name = window.localStorage.getItem("school_name")
@@ -76,9 +64,9 @@ function signin(email, password) {
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in 
-            console.log(userCredential);
+
             user = userCredential.user;
-            alert(user)
+           
             var Path = '/' + school_name + school_city + '/Manpower'
             onValue(ref(db, Path), (snap) => {
                 if (snap.exists()) {
@@ -88,22 +76,31 @@ function signin(email, password) {
                         if (user.uid == Manpower[ME].uid) break
                     }
                     window.localStorage.setItem("ME", ME)
-                    if (ME.substr(0, 8) == "Section-") window.location.replace('./sic_dashboard.html');
-                    if (ME.substr(0, 8) == "Teacher-") window.location.replace('./teacher_dashboard.html');
-                    if (ME.substr(0, 8) == "Supervi-") window.location.replace('./dashboard.html');
-                    window.location.replace('./staff_dashboard.html')
-                    // ...
+                    Redirect()
                 }
             }, {
                 onlyOnce: true
             })
         })
         .catch((error) => {
-            const errorCode = error.code;
+
             const errorMessage = error.message;
-            console.log("************ error:" + errorMessage);
-            // ..
+            alert("Error: " + errorMessage);
+
         });
+}
+
+//Redirection to appropriate dashboard
+function Redirect() {
+    var webpage = ""
+    if (ME.slice(0, 8) == "Section-") webpage = './sic_dashboard.html';
+    else if ((ME.slice(0, 10) == "Supervisor") || (ME == "Vice Principal") || (ME == "Principal")) webpage = './dashboard.html';
+    else {
+        alert("You are not authorized to access this page.")
+        webpage = './index.html'
+    }
+    window.location = webpage;
+    // ...
 }
 
 
@@ -118,12 +115,26 @@ function hashCode(s) {
     }, 0)
 }
 
+function changePassword(newPassword) {
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+    updatePassword(user, newPassword).then(() => {
+        // Update successful.
+        alert("Password Updated Successfully")
+    }).catch((error) => {
+        alert("Error with Password Updation." + error.message)
+    });
+}
+
 export {
-    statechanged,
+
     signup,
     signin,
     hashCode,
     ME,
     db,
-    Manpower,user
+    Manpower,
+    user,
+    changePassword
 }
