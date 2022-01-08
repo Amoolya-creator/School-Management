@@ -1,0 +1,38 @@
+input {
+    color: blue;
+}
+
+h3{
+    padding: 15px;
+    color: blue;
+    border: 2px solid blue;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px cyan;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    background-color: white;
+}
+
+input:hover{
+    background-color: lightskyblue;
+    border: 2px solid blue;
+}
+
+label{
+    font-family: cursive;
+    font-size: large;
+}
+
+h5{
+    padding: 5px;
+    text-align: center;
+    background-color: white;
+    border: 2px solid blue;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px cyan;
+    font-family:Arial, Helvetica, sans-serif;    
+}
+
+body{
+    background-image:linear-gradient(45deg,rgb(155, 183, 245),white);
+}

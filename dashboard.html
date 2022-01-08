@@ -18,8 +18,8 @@
         school_name = window.localStorage.getItem("school_name")
         school_city = window.localStorage.getItem("school_city")
         var ME = window.localStorage.getItem("ME")
-        if (school_name ==undefined || school_city==undefined || ME ==undefined) {
-            alert ("You are not authorized to visit this page")
+        if (school_name == undefined || school_city == undefined || ME == undefined) {
+            alert("You are not authorized to visit this page")
             window.location.assign("./index.html")
         }        
     </script>
@@ -50,21 +50,21 @@
         </div>
 
         <div class="row m-4 p-2 bg-dark rounded ">
-            <div class="col-4">
+            <div class="col-md-4 col-sm-12">
                 <div id="Staff" class="h-100 p-2 bg-info rounded">
                     <h3>My Staff</h3>
-                    <table class="table">
+                    <table class="table table-responsive">
                         <thead>
                             <th>Category</th>
                             <th>UserID</th>
                             <th>Name</th>
                             <th>Status</th>
                         </thead>
-                        <tbody id="My_Staff"></tbody>
+                        <tbody style="overflow-y: scroll;" id="My_Staff"></tbody>
                     </table>
                 </div>
             </div>
-            <div class="col-8">
+            <div class="col-md-8 col-sm-12">
                 <div class="row rounded p-2 mb-2 bg-white">
                     <h3>Incoming Requests</h3>
                     <table class="table">
@@ -82,20 +82,21 @@
                     </table>
                 </div>
 
-                <div class="row p-2 b-2 bg-primary rounded">
-                    <h3 class="rounded">Realtime Status</h3> 
+                <div class="row p-2 mb-2 bg-primary rounded">
+                    <h3 class="rounded">Realtime Status</h3>
                     <div class="bg-white rounded">
-                        <table class="table table-striped table-hover">
-                            <thead class="row">                                
-                                    <th class="col-2">Work Assigned</th>
-                                    <th class="col-2">To whom</th>
-                                    <th class="col-2">Place</th>
-                                    <th class="col-2">Time</th>
-                                    <th class="col-2">Priority</th>
-                                    <th class="col-2">Status</th> 
+                        <table class="table table-striped table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Work</th>
+                                    <th>To whom</th>
+                                    <th>Location</th>
+                                    <th>Time</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                </tr>
                             </thead>
-                            <tbody id="Work_Assigned" height=200px >       
-                            </tbody>
+                            <tbody id="Work_Assigned"></tbody>
                         </table>
                     </div>
                 </div>
@@ -108,7 +109,7 @@
             </div>
             <div class="col-2 form-group">
                 <h6>Action</h6>
-                <select id="action" class="form-control" type="text">
+                <select id="action" class="form-select" type="text">
                     <option name="Check">Check</option>
                     <option name="Repair">Repair</option>
                     <option name="Clean">Clean</option>
@@ -120,16 +121,16 @@
                 </select>
             </div>
             <div class="col-2 form-group">
-                <h6>Object</h6>
+                <h6>Material</h6>
                 <input id="object" class="form-control" type="text"></input>
             </div>
             <div class="col-2 form-group">
-                <h6>Place</h6>
+                <h6>Location</h6>
                 <input id="place" class="form-control" type="text"></input>
             </div>
             <div class="col-2">
                 <h6>Priority</h6>
-                <select id="priority" class="form-control">
+                <select id="priority" class="form-select">
                     <option class="selected" name="Routine">Routine</option>
                     <option class="text-warning" name="Priority">Priority</option>
                     <option class="text-danger" name="Urgent">Urgent</option>
@@ -138,7 +139,7 @@
             </div>
             <div class="col-2">
                 <h6>To</h6>
-                <select id="send_to" class="form-control">                   
+                <select id="send_to" class="form-select">
                 </select>
             </div>
             <div class="col-1">
@@ -147,16 +148,52 @@
             </div>
         </div>
 
-        <div class="row bg-light rounded p-4">
-           
+        <div id="footer" class="row bg-light rounded p-4">
+            <div class="col text-center">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                    Change Password
+                </button>
+            </div>
             <div class="col text-center">
                 <button class="btn btn-primary" onclick="window.location.assign('./add_staff.html')">Add Staff</button>
             </div>
             <div class="col text-center">
-                <button class="btn btn-primary" onclick="window.location.assign('./facility_infrastructure.html')">Set / View Infrastructure</button>
+                <button class="btn btn-primary" onclick="window.location.assign('./facility_infrastructure.html')">Set /
+                    View Infrastructure</button>
             </div>
             <div class="col text-center">
-                <button class="btn btn-primary" onclick="{window.localStorage.removeItem('ME');window.location.assign('./index.html')}">Logout</button>
+                <button class="btn btn-primary"
+                    onclick="{window.localStorage.removeItem('ME');window.location.assign('./index.html')}">Logout</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Change Password</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <label>Enter New Password</label>
+                    <input id="newPwd" type="password"><br><br>
+                    <button id="set_btn" class="btn btn-primary">Set New Password</button>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
             </div>
         </div>
     </div>

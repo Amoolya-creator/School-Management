@@ -22,12 +22,7 @@
             <h1>Dashboard</h1>
         </div>
         <div class="mx-4 p-2 text-center rounded">
-            <h3 id="school">
-                <script>
-                    var school_name = window.localStorage.getItem("school_name")
-                    var school_city = window.localStorage.getItem("school_city")
-                    document.write(school_name + ", " + school_city)
-                </script>
+            <h3 id="school">         
             </h3>
         </div>
         <div id="head" class="row p-2 m-4 bg-primary rounded">
@@ -79,8 +74,7 @@
                 <div class="row">
                     <div class="col-2 form-group">
                         <h6>Action</h6>
-                        <select id="action" class="form-select" type="text">
-
+                        <select id="action" class="form-select">
                             <option name="Repair">Repair</option>
                             <option name="Clean">Clean</option>
                             <option name="Add">Add</option>
@@ -100,7 +94,7 @@
                     <div class="col-2">
                         <h6>Priority</h6>
                         <select id="priority" class="form-select">
-                            <option class="selected" name="Routine">Routine</option>
+                            <option selected name="Routine">Routine</option>
                             <option class="text-warning" name="Priority">Priority</option>
                             <option class="text-danger" name="Urgent">Urgent</option>
                             <option class="text-danger" name="Immediate">Immediate</option>
@@ -108,9 +102,9 @@
                     </div>
                     <div class="col-2">
                         <h6>To</h6>
-                        <label class="form-control">
-                            My Section-Incharge
-                        </label>
+                        <select id="send_to" class="form-select">
+                            <option selected>My Section-Incharge</option>
+                        </select>
                     </div>
                     <div class="col-1">
                         <h6>&nbsp;</h6>

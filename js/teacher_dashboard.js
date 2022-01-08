@@ -11,41 +11,46 @@ import {
 var school_name = window.localStorage.getItem("school_name")
 var school_city = window.localStorage.getItem("school_city")
 var staffID = window.localStorage.getItem("staffID")
-if (staffID == "") {
+
+function NotAuth(){
     alert("Error. You are not authorised to visit this page.")
     window.localStorage.removeItem("staffID")
     window.location.assign('./index.html')
 }
-
 $("#school").html(school_name + ", " + school_city)
-
-
-var ME
-
-var Path = '/' + school_name + school_city + '/Manpower/' + staffID
+if (staffID===undefined || staffID=="") NotAuth()
+var Manpower
+var Auth =false
+var Path = '/' + school_name + school_city + '/Manpower'
 onValue(ref(db, Path), (snap) => {
     if (snap.exists()) {
-        ME = snap.val()
-
-        $("#Post").html(ME.Post)
-        $("#Name").html(ME.Name)
-        $("#UserID").html(ME.UserID)
-       
+        Manpower = snap.val()        
+        ///////// Manpower Select Option (Get All Supervisors) ///////
+        var tt=''
+        for (var keys in Manpower) {
+            if (staffID==keys) Auth=true
+            if (keys.slice(0, 10) == "Supervisor") tt += '<option value="' + Manpower[keys].UserID + '">' + keys + '</option>'
+        }
+        
+        if (Auth==false) NotAuth() 
+        tt = '<option selected value="' + Manpower[staffID].BossID + '">My Section-Incharge</option>' + tt
+        $("#send_to").html(tt)
+        $("#Post").html(Manpower[staffID].Post)
+        $("#Name").html(Manpower[staffID].Name)
+        $("#UserID").html(Manpower[staffID].UserID)
         start_post_listener();
     }
+},{
+    onceOnly:true
 })
-
-
-
 
 //////////// Post Work   //////
 $("#send_btn").on('click', () => {
-    var Post_Path = '/' + school_name + school_city + '/postbox/' + ME.RecruiterID
-
+    var Post_Path = '/' + school_name + school_city + '/postbox/' + $("#send_to").val()
     var newKey = push(ref(db, Post_Path)).key
     var T = Date()
     var Post = {
-        From: ME.UserID,
+        From: Manpower[staffID].UserID,
         Action: $("#action").val(),
         Object: $("#object").val(),
         Place: $("#place").val(),
@@ -53,9 +58,7 @@ $("#send_btn").on('click', () => {
         Time: T
     }
     set(ref(db, Post_Path + '/' + newKey), Post).then(() => {
-        alert("Request Sent to The Section Incharge");
-
-
+        alert("Request Sent");
     })
 })
 
@@ -65,9 +68,9 @@ function start_post_listener() {
     var myPath = '/' + school_name + school_city + '/postbox/' + staffID
     onValue(ref(db, myPath), (snap) => {
         if (snap.exists()) {
-            var tt ='<tr>'
+            var tt = '<tr>'
             var data = snap.val()
-            tt +=   '<td>' + data.P1 + '</td>\
+            tt += '<td>' + data.P1 + '</td>\
             <td>' + data.P2 + '</td>\
             <td>' + data.P3 + '</td>\
             <td>' + data.P4 + '</td>\
@@ -76,8 +79,7 @@ function start_post_listener() {
             <td>' + data.P7 + '</td>\
             <td>' + data.P8 + '</td>\
             <tr>'
-          $("#Requests").html(tt)
-            
+            $("#Requests").html(tt)
         }
     })
 }

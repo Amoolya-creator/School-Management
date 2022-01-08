@@ -1,5 +1,5 @@
 import {
-    db
+    db, changePassword
 } from "./main.js";
 import {
     ref,
@@ -39,7 +39,7 @@ function Manpower_under_me_fx() {
     for (var Individual in Manpower) {
         if (ME == Individual) continue;
         if (ME=="Vice Principal" && (Individual=="Principal" || Manpower[Individual].Post=="Section Incharge" )) continue;
-        if (Manpower[ME].Post=="Supervisor" && Individual.slice(0,5)!="staff") continue;
+        if (Manpower[ME].Post=="Supervisor" && Manpower[Individual].Boss != ME) continue;
         Manpower_under_me.push(Individual);
     }
     ///////  Manpower Status ///////
@@ -55,7 +55,7 @@ function Manpower_under_me_fx() {
     ///////  Manpower options Available for work Assignment///////
     var tt = ""
     Manpower_under_me.forEach((e) => {
-        if (Manpower[e].Status == "Available") tt += '<option>' + Manpower[e].UserID + '</option>'
+        if (Manpower[e].Status == "Available") tt += '<option value="' + Manpower[e].UserID + '">'+e+'</option>'
     })
     $("#send_to").html(tt)
 
@@ -69,6 +69,7 @@ $("#send_btn").on('click', () => {
     var T = Date()
     var Post = {
         From: ME,
+        To:$("#send_to").val(),
         Action: $("#action").val(),
         Object: $("#object").val(),
         Place: $("#place").val(),
@@ -79,7 +80,7 @@ $("#send_btn").on('click', () => {
     set(ref(db, Post_Path + '/' + newKey), Post).then(() => {
         alert("Work Sent to The Staff");
         //save copy of work-sent
-        Post["To"]=$("#send_to").val()
+      
         Post_Path = '/' + school_name + school_city + '/outbox/' + Manpower[ME].UserID
         newKey = push(ref(db, Post_Path)).key
         set(ref(db,Post_Path+'/'+newKey),Post)
@@ -95,13 +96,12 @@ function start_outbox_listner(){
             var tt=''
             for (var msg in SentMessages){
                 var data = SentMessages[msg]
-                tt += '<tr><td>'+data.Action+ " " +data.Object+'<td>'
-                tt += '<td>'+Manpower[data.To].Name+ " (" +data.To+')<td>'
-                tt += '<td>'+data.Place+'<td>'
-                tt += '<td>'+data.Time.slice(15,24)+'<td>'
-                tt += '<td>'+data.Priority+'<td>'
+                tt += '<tr><td>'+data.Action+ " " +data.Object+'</td>'
+                tt += '<td>'+data.To+'</td>'
+                tt += '<td>'+data.Place+'</td>'
+                tt += '<td>'+data.Time.slice(15,24)+'</td>'
+                tt += '<td>'+data.Priority+'</td>'
                 tt += '<td>'+data.Status+'</td></tr>'
-
             }
             $("#Work_Assigned").html(tt)
         }
@@ -119,11 +119,12 @@ function start_post_listener() {
             for (var Request in Requests) {
                 var data = Requests[Request]
                 tt += '<tr>\
+                <td>' +data.From+'</td>\
             <td>' + data.Action + '</td>\
             <td>' + data.Object + '</td>\
             <td>' + data.Place + '</td>\
             <td>' + data.Priority + '</td>\
-            <td>' + data.Time + '</td>\
+            <td>' + data.Time.slice(15,21) + '</td>\
             <tr>'
                 $("#Requests").html(tt)
             }
@@ -131,4 +132,10 @@ function start_post_listener() {
     })
 }
 
+/////// Change Password ///////
 
+$("#set_btn").on('click', ()=>{
+    var newPwd = $("#newPwd").val()
+    changePassword(newPwd)
+
+})

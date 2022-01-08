@@ -43,11 +43,9 @@ function signup(email, password, Manpower_name, Data) {
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in 
-            user = userCredential.user;
-            alert("Account created : " + JSON.stringify(user));
-
+            user = userCredential.user;            
             Data["uid"] = user.uid;
-            set(reff, Data).then(alert(Manpower_name + " data saved"))
+            set(reff, Data).then(alert("Account created : " + Manpower_name))
 
 
         })

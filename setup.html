@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<!--      <div class="container">
+    <!--      <div class="container">
        <h3 class="mt-5 text-center rounded">Admin Particulars</h3>
         <div class="row form-group">
             <label for="Admin_Email" class="col col-form-label">Admin Email
@@ -35,27 +35,28 @@
         </div>
     </div>
 
-    <hr> --> 
+    <hr> -->
     <div class="container">
         <h3 class="m-3 text-center rounded">School Particulars</h3>
 
         <div class="row form-group">
             <label class="col-6"> School Name
-           
+
                 <script>
-                    document.write('<input class="form-control" readonly value="'+window.localStorage.getItem("school_name")+'">');
+                    document.write('<input class="form-control" readonly value="' + window.localStorage.getItem("school_name") + '">');
                 </script>
             </label>
-            <label class="col" for="school_logo_file">School Logo
+<!--             <label class="col" for="school_logo_file">School Logo
                 <input class="form-control" name="school_logo_file" id="school_logo_file" type="file"
-                    accept=".png, .jpg, .jpeg"></label>
+                    accept=".png, .jpg, .jpeg">
+            </label> -->
         </div>
         <div class="row form-group">
             <label class="col-6"> School Address
                 <input class="form-control" name="school_address" id="school_address"></label>
-            <label class="col-6"> City                
+            <label class="col-6"> City
                 <script>
-                    document.write('<input class="form-control" readonly value="'+ window.localStorage.getItem("school_city")+'">');
+                    document.write('<input class="form-control" readonly value="' + window.localStorage.getItem("school_city") + '">');
                 </script>
             </label>
         </div>

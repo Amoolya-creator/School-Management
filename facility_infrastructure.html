@@ -14,22 +14,17 @@
 
 <body>
     <div class="container">
-        <h1>Facility Infrastructure</h1>
+        <h3>Facility Infrastructure</h3>
+        <div id="facility"></div>       
+    
+        <h6>Enter Name of Material followed by Quantity</h6>
 
-        <div class="row form-group">
-            <input id="className" type="text" maxlength=3 class="col form-control">
-            <label id="classTeacher" class="col form-label">me </label>
-            <label id="classTeacherUserID" class="col form-label">my UserID</label>
-        </div>
-        <div>
-            <h3>Please Add Facility Infrastructure here</h3>
-            <h6 class="text-info">Enter Name of Material followed by Quantity</h6>
-        </div>
         <div id="tab1"></div>
-        <button onclick="addRow('',1)" class="col btn btn-primary">Add Row</button>
+        <button id="addRow" class="col btn btn-primary">Add Row</button>
         <div class="m-3 row">
-            <button onclick="saveData()" class="col-3 offset-2 btn btn-primary">Save Infrastructure</button>
-            <button onclick="window.location.assign('./dashboard.html')" class="col-3 offset-3 btn btn-primary">Back</button>
+            <button id="saveData" class="col-3 offset-2 btn btn-primary">Save Infrastructure</button>
+            <button onclick="window.location.assign('./dashboard.html')"
+                class="col-3 offset-3 btn btn-primary">Back</button>
         </div>
 
     </div>

@@ -41,16 +41,20 @@ $("#addRow").on('click', () => {
 
 $("#saveData").on('click',()=>{    
     for ( var x =1; x<=c ;x++){
-    var Path = ref(db,'/'+school_name+school_city+'/Manpower/teacher-'+(nManpower+x))
+    var Path = ref(db,'/'+school_name+school_city+'/Manpower/teacher-'+(nManpower+1))
         var Data ={
             Post: $("#Category"+x).val()+" Teacher",
             Name: $("#Name"+x).val(),
             UserID: $("#UserID"+x).val(),
             Status:"Available",
+            Boss:ME,
+            BossID:Manpower[ME].UserID,
             Recruiter:ME,
             RecruiterID:Manpower[ME].UserID
         }
         set(Path,Data)
     }
     alert("New Teacher(s) Data Saved")
+    $("#tab1").html('')
+    c=0;
 })

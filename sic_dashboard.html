@@ -58,8 +58,8 @@
                     <table class="table">
                         <thead>
                             <th>Subject</th>
-                            <th>UserID</th>
                             <th>Name</th>
+                            <th>UserID</th>
                             <th>Status</th>
                         </thead>
                         <tbody id="My_Teachers"></tbody>
@@ -67,9 +67,9 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="row rounded h-100 p-2 mb-2 bg-white">
+                <div class="row rounded p-2 mb-2 bg-white">
                     <h3>Incoming Requests</h3>
-                    <table class="table">
+                    <table class="table table-responsive" >
                         <thead>
                             <tr>
                                 <th>From</th>
@@ -89,8 +89,9 @@
             <div class="col row p-2 m-2 bg-primary rounded ">
                 <div class="rounded">
                     <h3>Set Time Table for Teachers</h3>
+                    <p class="text-white">Please assign the Class-Section for teacher(s) under the given period(s).</p>
                 </div>
-                <table class=" col bg-info p-2 m-2 rounded table table-striped table-hover">
+                <table class=" col bg-info p-2 m-2 rounded table table-striped table-hover table-responsive" >
                     <thead>
                         <th>Teacher</th>
                         <th>UserID</th>
@@ -111,7 +112,12 @@
                 </table>
             </div>
         </div>
-        <div class="row m-4 p-2">
+        <div id="footer" class="row m-4 p-2">
+            <div class="col text-center">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                    Change Password
+                </button>
+            </div>
             <div class="col text-center">
                 <button id="send_btn" class="btn btn-primary" >Send Timetable to Teacher(s)</button>
             </div>
@@ -129,6 +135,34 @@
             </div>
         </div>
 
+    </div>
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Change Password</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <label>Enter New Password</label>
+                    <input id="newPwd" type="password"><br><br>
+                    <button id="set_btn" class="btn btn-primary">Set New Password</button>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
     </div>
 
     <script type="module" src="./js/sic_dashboard.js"></script>

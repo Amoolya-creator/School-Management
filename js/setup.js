@@ -31,8 +31,7 @@ function createAdmin() {
         'School Name': school_name,
         'School Address': $('#school_address').val(),
         'School City': school_city,
-        'School Logo': ""
-    }
+        }
     set(ref(db,'/'+school_name+school_city),SetUp_Data)
 }
 
@@ -46,9 +45,15 @@ function createPrincipal() {
         Password: hashCode($('#principal_name').val()),
         UserID: "Principal",
         Supervises: "Vice Principal, All Section Incharges",
-        Status:"Available"
+        Status:"Available",
+        Boss:"Admin",
+        BossID:"Admin",
+        Recruiter:"Admin",
+        RecruiterID:"Admin"
     }
    signup($('#principal_email').val(),hashCode($('#principal_name').val()),"Principal",Principal)
+  
+
 }
 
 function createVicePrincipal() {
@@ -61,17 +66,24 @@ function createVicePrincipal() {
         Password: hashCode($('#vice_principal_name').val()),
         UserID: "Vice Principal",
         Supervises: "All Supervisors",
-        Status:"Available"
+        Status:"Available",
+        Boss:"Principal",
+        BossID:"Principal",
+        Recruiter:"Admin",
+        RecruiterID:"Admin"
     }
     signup($('#vice_principal_email').val(),hashCode($('#vice_principal_name').val()),"Vice Principal",Vice_Principal)
+    
 }
 
 function createSectionIncharges() {
     var x = 0;
     SectionList.forEach(ele => {
         var e = ele.substr(0, 4);
-      
-        if ($('#' + e + '_name').val() != '') { //if Section name ="" then skip writing data
+        
+        if ($('#' + e + '_name').val() != '') { 
+            //if Section name ="" then skip writing data
+            
             var Section_Incharge = {
                
                 Post: "Section Incharge",
@@ -82,10 +94,14 @@ function createSectionIncharges() {
                 Supervises: "Teachers",
                 Sections_in_class: $('#' + e + '_sections').val(),
                 No_of_students_per_class: $('#' + e + '_students').val(),
-                Status:"Available"
+                Status:"Available",
+                Boss:"Principal",
+                BossID:"Principal",
+                Recruiter:"Admin",
+                RecruiterID:"Admin"
             }
             signup($('#' + e + '_email').val(),hashCode($('#' + e + '_name').val()),"Section-"+ele, Section_Incharge);
         }
+        
     });
-
 }

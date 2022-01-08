@@ -9,8 +9,8 @@ import {
 var Facilities = ["Library",
     "AV equip",
     "Smart Class",
-    "Computer Lab ",
-    "Chemistry Lab ",
+    "Computer Lab",
+    "Chemistry Lab",
     "Bio Lab",
     "Swimming Pool",
     "Basket Ball Court",
@@ -89,7 +89,12 @@ $("#save_facilities_data").on('click', () => {
                 UserID: "S" + x++,
                 Password: hashCode($("#name_" + row).val()),
                 Email: $("#email_" + row).val(),
-                Supervises: e
+                Supervises: e,
+                Status:"Available",
+                Boss:"Vice Principal",
+                BossID:"Vice Principal",
+                Recruiter:"Admin",
+                RecruiterID:"Admin"
             }
             signup($("#email_" + row).val(),hashCode($("#name_" + row).val()),"Supervisor-"+e, data)
         }
