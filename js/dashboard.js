@@ -63,9 +63,6 @@ function Manpower_under_me_fx() {
 
 //////////// Post Work   //////
 $("#send_btn").on('click', () => {
-    var Post_Path = '/' + school_name + school_city + '/postbox/' + $("#send_to").val()
-
-    var newKey = push(ref(db, Post_Path)).key
     var T = Date()
     var Post = {
         From: ME,
@@ -77,15 +74,19 @@ $("#send_btn").on('click', () => {
         Time: T,
         Status:"Pending"
     }
-    set(ref(db, Post_Path + '/' + newKey), Post).then(() => {
-        alert("Work Sent to The Staff");
-        //save copy of work-sent
-      
-        Post_Path = '/' + school_name + school_city + '/outbox/' + Manpower[ME].UserID
-        newKey = push(ref(db, Post_Path)).key
-        set(ref(db,Post_Path+'/'+newKey),Post)
 
-    })
+    var Outbox_Path = '/' + school_name + school_city + '/outbox/' + Manpower[ME].UserID
+    var Outbox_Key = push(ref(db, Outbox_Path)).key
+    Post["Link"]=Outbox_Path+'/'+Outbox_Key;
+    var Postbox_Path = '/' + school_name + school_city + '/postbox/' + $("#send_to").val()
+    var Postbox_Key = push(ref(db, Postbox_Path)).key
+
+    set(ref(db, Postbox_Path + '/' +Postbox_Key ), Post).then(() => {
+        alert("Work Sent to The Staff");})
+
+        //save copy of work-sent
+    set(ref(db,Outbox_Path+'/'+Outbox_Key),Post)
+    
 })
 ///////// Start Outbox Listener ///////
 function start_outbox_listner(){
