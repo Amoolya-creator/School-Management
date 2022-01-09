@@ -63,7 +63,6 @@ $("#send_btn").on('click', () => {
 })
 
 ///////////// Start Post Listener//////////
-
 function start_post_listener() {
     var myPath = '/' + school_name + school_city + '/postbox/' + staffID
     onValue(ref(db, myPath), (snap) => {
@@ -83,5 +82,3 @@ function start_post_listener() {
         }
     })
 }
-
-

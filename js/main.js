@@ -101,7 +101,6 @@ function Redirect() {
     // ...
 }
 
-
 // Get a reference to the database service
 const db = getDatabase(app);
 
@@ -114,7 +113,6 @@ function hashCode(s) {
 }
 
 function changePassword(newPassword) {
-
     const auth = getAuth();
     const user = auth.currentUser;
     updatePassword(user, newPassword).then(() => {
@@ -126,7 +124,6 @@ function changePassword(newPassword) {
 }
 
 export {
-
     signup,
     signin,
     hashCode,

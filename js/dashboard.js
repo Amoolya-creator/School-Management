@@ -12,7 +12,6 @@ var school_name = window.localStorage.getItem("school_name")
 var school_city = window.localStorage.getItem("school_city")
 $("#school").html(school_name + ", " + school_city)
 
-
 var Manpower, ME
 var Path = '/' + school_name + school_city + '/Manpower'
 onValue(ref(db, Path), (snap) => {
@@ -28,8 +27,6 @@ onValue(ref(db, Path), (snap) => {
         start_post_listener();
     }
 })
-
-
 
 ////////// Manpower under ME //////
 var Manpower_under_me = []
@@ -58,7 +55,6 @@ function Manpower_under_me_fx() {
         if (Manpower[e].Status == "Available") tt += '<option value="' + Manpower[e].UserID + '">'+e+'</option>'
     })
     $("#send_to").html(tt)
-
 }
 
 //////////// Post Work   //////
@@ -134,9 +130,7 @@ function start_post_listener() {
 }
 
 /////// Change Password ///////
-
 $("#set_btn").on('click', ()=>{
     var newPwd = $("#newPwd").val()
     changePassword(newPwd)
-
 })

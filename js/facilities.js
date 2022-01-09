@@ -101,6 +101,5 @@ $("#save_facilities_data").on('click', () => {
         row++
     })
     window.localStorage.setItem("FacilitiesSetup",true)
-    alert("Data Saved")
-   
+    alert("Data Saved")   
 })

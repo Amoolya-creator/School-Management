@@ -42,6 +42,7 @@ else {
             available_facilities.forEach(element => {
                 tt += '<option value="' + element + '">' + element + '</option>'
             });
+            
             tt += '</select>\
             </div>\
             <div class="col-3">\
@@ -95,17 +96,11 @@ $("#addRow").on('click', () => { add_Row('', 1) })
 
 $("#saveData").on('click', () => {
     var Inputs = $("input")
-
-    var nItems = Inputs.length / 2
-    alert(nItems)
+    var nItems = Inputs.length / 2  
     var Data = {}
-
     for (var c = 0; c < nItems; c++) {
         Data[Inputs[2 * c].value] = Inputs[2 * c + 1].value
-    }
-
-    alert(JSON.stringify(Data))
-
+    }   
     var Path = ref(db, '/' + school_name + school_city + '/Facility/' + viewFacility)
     set(Path, Data).then(alert("Data Saved"))
 })

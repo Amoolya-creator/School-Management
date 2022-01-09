@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>School Management - Setup</title>
+    <title>SkoolTrak</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
@@ -46,7 +46,7 @@
                     document.write('<input class="form-control" readonly value="' + window.localStorage.getItem("school_name") + '">');
                 </script>
             </label>
-<!--             <label class="col" for="school_logo_file">School Logo
+            <!--             <label class="col" for="school_logo_file">School Logo
                 <input class="form-control" name="school_logo_file" id="school_logo_file" type="file"
                     accept=".png, .jpg, .jpeg">
             </label> -->
@@ -85,10 +85,8 @@
             ];
 
             var tt = ''; //tt=temporary text
-
             SectionList.forEach(ele => {
                 var e = ele.substr(0, 4);
-
                 tt += '<div class="mt-3 row form-check">\
                 <label class="col-12 col-form-label-lg" for="' + e + '_checkbox">\
                     <input class="form-check-input" id="' + e +
@@ -111,7 +109,6 @@
                 </label>\
                 </div>'
             })
-
             document.write(tt)
         </script>
     </div>

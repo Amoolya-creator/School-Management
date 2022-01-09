@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>School Management System - Login</title>
+    <title>SkoolTrak</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -63,18 +63,12 @@
                     <tbody id="Requests"></tbody>
                 </table>
             </div>
-
             <div class="text-white">#Ack = Please check the checkbox to acknowledge the task assigned</div>
-            
             <div class="text-white">Completed = Please check the checkbox on work completion</div>
-
         </div>
         <div class="row m-4 p-2 bg-dark rounded ">
-
             <div class="col p-2 bg-primary rounded ">
-
                 <h3 class="rounded">Raise Request</h3>
-
                 <div class="row">
                     <div class="col-2 form-group">
                         <h6>Action</h6>
@@ -116,8 +110,8 @@
         </div>
 
         <div class="rounded m-4 text-center">
-            <a class="btn btn-primary"
-                onclick="{window.localStorage.removeItem('staffID');window.location.assign('./index.html')}">Exit</a>
+            <a class="btn btn-primary" onclick="{window.localStorage.removeItem('staffID');
+                window.location.assign('./index.html')}">Exit</a>
         </div>
 
         <script type="module" src="./js/staff_dashboard.js"></script>

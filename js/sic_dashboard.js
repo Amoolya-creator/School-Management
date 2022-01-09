@@ -4,14 +4,12 @@ import {
 import {
     ref,
     set,
-    onValue,
-    push
+    onValue
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 var school_name = window.localStorage.getItem("school_name")
 var school_city = window.localStorage.getItem("school_city")
 $("#school").html(school_name + ", " + school_city)
-
 
 var Manpower, ME
 var Path = '/' + school_name + school_city + '/Manpower'
@@ -27,8 +25,6 @@ onValue(ref(db, Path), (snap) => {
         start_post_listener();
     }
 })
-
-
 
 ////////// Manpower under ME //////
 var Manpower_under_me = []
@@ -93,7 +89,6 @@ $("#send_btn").on('click', () => {
         set(ref(db, Post_Path), Data)
     }
     alert("Data sent to All Teachers")
-
 })
 
 ///////////// Start Post Listener//////////
@@ -121,9 +116,7 @@ function start_post_listener() {
 }
 
 /////// Change Password ///////
-
 $("#set_btn").on('click', () => {
     var newPwd = $("#newPwd").val()
     changePassword(newPwd)
-
 })

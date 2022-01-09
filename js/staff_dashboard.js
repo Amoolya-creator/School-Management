@@ -46,7 +46,6 @@ onValue(ref(db, Path), (snap) => {
     onceOnly: true
 })
 
-
 //////////// Post Work   //////
 $("#send_btn").on('click', () => {
     var Post_Path = '/' + school_name + school_city + '/postbox/' + $("#send_to").val()
@@ -67,7 +66,6 @@ $("#send_btn").on('click', () => {
 })
 
 ///////////// Start Post Listener//////////
-
 function start_post_listener() {
     var myPath = '/' + school_name + school_city + '/postbox/' + staffID
     onValue(ref(db, myPath), (snap) => {
@@ -101,13 +99,7 @@ function start_post_listener() {
                     var Path = $("#sn_" + c).attr('link')
                     update(ref(db, Path), { Status: "Completed" })
                 })
-
             }
-
         }
     })
 }
-
-
-
-

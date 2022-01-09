@@ -20,7 +20,6 @@ import { signin } from "./main.js";
 
     $('.validate-form').on('submit', function () {
         var check = true;
-
         for (var i = 0; i < input.length; i++) {
             if (validate(input[i]) == false) {
                 showValidate(input[i]);
@@ -29,7 +28,6 @@ import { signin } from "./main.js";
         }
         return check;
     });
-
 
     $('.validate-form .input100').each(function () {
         $(this).focus(function () {
@@ -58,8 +56,6 @@ import { signin } from "./main.js";
         var thisAlert = $(input).parent();
         $(thisAlert).removeClass('alert-validate');
     }
-
-
 })(jQuery);
 
 $("#client-form").on('submit',(e)=>{

@@ -52,14 +52,10 @@ function createPrincipal() {
         RecruiterID:"Admin"
     }
    signup($('#principal_email').val(),hashCode($('#principal_name').val()),"Principal",Principal)
-  
-
 }
 
 function createVicePrincipal() {
-
-    var Vice_Principal = {
-       
+    var Vice_Principal = {       
         Post: "Vice Principal",
         Name: $('#vice_principal_name').val(),
         Email: $('#vice_principal_email').val(),
@@ -73,7 +69,6 @@ function createVicePrincipal() {
         RecruiterID:"Admin"
     }
     signup($('#vice_principal_email').val(),hashCode($('#vice_principal_name').val()),"Vice Principal",Vice_Principal)
-    
 }
 
 function createSectionIncharges() {
@@ -84,8 +79,7 @@ function createSectionIncharges() {
         if ($('#' + e + '_name').val() != '') { 
             //if Section name ="" then skip writing data
             
-            var Section_Incharge = {
-               
+            var Section_Incharge = {               
                 Post: "Section Incharge",
                 Name: $('#' + e + '_name').val(),
                 Email: $('#' + e + '_email').val(),
@@ -101,7 +95,6 @@ function createSectionIncharges() {
                 RecruiterID:"Admin"
             }
             signup($('#' + e + '_email').val(),hashCode($('#' + e + '_name').val()),"Section-"+ele, Section_Incharge);
-        }
-        
+        }        
     });
 }

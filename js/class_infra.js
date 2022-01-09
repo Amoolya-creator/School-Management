@@ -1,5 +1,5 @@
 import {
-    db,
+    db
 } from "./main.js";
 import {
     ref,
@@ -25,15 +25,14 @@ var Classes = {
     "Sec": [9, 10],
     "Hig": [11, 12]
 }
+
 onValue(ref(db, Path), (snap) => {
     var ME_Struc = snap.val()
     sections_in_class = ME_Struc.Sections_in_class
     nStudents = ME_Struc.No_of_students_per_class
     setDefaultMaterials()
     var subs = ME.slice(8, 11)
-
     var ClassArr = Classes[subs]
-
     SectionList = []
     ClassArr.forEach(function (e) {
         for (var cc = 0; cc < sections_in_class; cc++) {
@@ -48,7 +47,6 @@ onValue(ref(db, Path), (snap) => {
             }
         }
     })
-
     addtabs()
 }, {
     onlyOnce: true
@@ -57,7 +55,7 @@ onValue(ref(db, Path), (snap) => {
 function addtabs() {
     var tt = ''
     SectionList.forEach(function (ee) {
-        tt += '<li class="nav-item"><button id="link_'+ee+'" class="nav-link" data-bs-toggle="tab" data-bs-target="#Class_' + ee + '">\
+        tt += '<li class="nav-item"><button id="link_' + ee + '" class="nav-link" data-bs-toggle="tab" data-bs-target="#Class_' + ee + '">\
      ' + ee + '</button></li>'
     })
     $("#navs").html(tt)
@@ -72,23 +70,24 @@ function addtabs() {
 }
 var DefaultMaterials = {}
 
-function setDefaultMaterials(){
-    DefaultMaterials={
-    "Tables": nStudents,
-    "Chairs": nStudents,
-    "Teacher_Table": 1,
-    "Teacher_Chair": 1,
-    "Blackboard": 1,
-    "AV_Equipment": 1,
-    "Smart_Class": 1,
-    "Chalk_Box": 2,
-    "Pens": 5,
-    "Pencils": nStudents,
-    "Crayon_Box": nStudents,
-    "Attendance_Register": 1,
-    "File_Folders": 5,
-    "Chart_Papers": nStudents,
-    "Eraser": 1}
+function setDefaultMaterials() {
+    DefaultMaterials = {
+        "Tables": nStudents,
+        "Chairs": nStudents,
+        "Teacher_Table": 1,
+        "Teacher_Chair": 1,
+        "Blackboard": 1,
+        "AV_Equipment": 1,
+        "Smart_Class": 1,
+        "Chalk_Box": 2,
+        "Pens": 5,
+        "Pencils": nStudents,
+        "Crayon_Box": nStudents,
+        "Attendance_Register": 1,
+        "File_Folders": 5,
+        "Chart_Papers": nStudents,
+        "Eraser": 1
+    }
 }
 
 var Materials, c
@@ -119,7 +118,7 @@ onValue(ref(db, '/' + school_name + school_city + '/Class'), (snap) => {
             availableRows()
         })
     }
-  $(".nav-link:first").tab('show')
+    $(".nav-link:first").tab('show')
 })
 
 function addRow(e, f) {
@@ -145,23 +144,17 @@ $("#addRow").on('click', () => {
 })
 
 $("#saveData").on('click', () => {
-
     currentClass = $('.tab-pane.show').attr('id').slice(6)
-
     var input = $("#Class_" + currentClass + " input")
     var nItems = input.length
     var SaveMaterial = {}
-
     var Tot = (nItems) / 2
-
     for (var c = 0; c < Tot; c++) {
         if (input[c * 2].value == undefined || input[c * 2].value == "") continue
         SaveMaterial[input[c * 2].value] = input[c * 2 + 1].value
     }
-
     var school_name = window.localStorage.getItem("school_name")
     var school_city = window.localStorage.getItem("school_city")
     var Path = ref(db, '/' + school_name + school_city + '/Class/' + currentClass);
-
     set(Path, SaveMaterial).then(alert("Data for " + $('.tab-pane.show').attr('id').slice(6) + " Saved"))
 })

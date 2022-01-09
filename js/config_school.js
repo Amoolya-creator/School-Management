@@ -19,7 +19,6 @@ document.getElementById('sanitise_data').addEventListener('click', () => {
         window.localStorage.setItem("school_name", Sname)
         window.localStorage.setItem("school_city", Scity)
 
-
         //check_for_school_details
         onValue(ref(db, '/' + Sname + Scity), (snap) => {
             (snap.exists()) ? school_exists(): school_not_present();

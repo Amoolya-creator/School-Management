@@ -1,6 +1,5 @@
 import {
-    db,
-
+    db
 } from "./main.js";
 import {
     ref,
