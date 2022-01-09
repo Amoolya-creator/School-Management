@@ -26,7 +26,7 @@ onValue(reff, (snap) => {
 })
 
 function set_SelectOptionsText() {
-    var tt = '<option selected value="' + Manpower[ME].UserID + '">  ME  </option>';
+    var tt = '<option selected value="' + Manpower[ME].UserID + '">'+ ME +'</option>';
     for (var keys in Manpower) {
         if (ME.slice(0,10)=="Supervisor") { break;}
         if ((keys == ME) || (keys.slice(0, 7) == 'teacher') || (keys.slice(0, 5) == 'staff') || (keys.slice(0, 7) == 'Section')) continue;

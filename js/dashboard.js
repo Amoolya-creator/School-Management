@@ -36,9 +36,10 @@ function Manpower_under_me_fx() {
     for (var Individual in Manpower) {
         if (ME == Individual) continue;
         if (ME=="Vice Principal" && (Individual=="Principal" || Manpower[Individual].Post=="Section Incharge" )) continue;
-        if (Manpower[ME].Post=="Supervisor" && Manpower[Individual].Boss != ME) continue;
+        if (ME.slice(0,10)=="Supervisor" && Manpower[Individual].Boss != ME) continue;
         Manpower_under_me.push(Individual);
     }
+    alert(Manpower_under_me)
     ///////  Manpower Status ///////
     var tt = ""
     Manpower_under_me.forEach((e) => {
