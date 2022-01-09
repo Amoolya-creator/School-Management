@@ -39,7 +39,6 @@ function Manpower_under_me_fx() {
         if (ME.slice(0,10)=="Supervisor" && Manpower[Individual].Boss != ME) continue;
         Manpower_under_me.push(Individual);
     }
-    alert(Manpower_under_me)
     ///////  Manpower Status ///////
     var tt = ""
     Manpower_under_me.forEach((e) => {
