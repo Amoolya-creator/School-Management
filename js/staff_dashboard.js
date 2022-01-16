@@ -90,14 +90,21 @@ function start_post_listener() {
             ///// feedback
             for (var cc = 1; cc <= c; cc++) {
                 $("#ack_" + c).on('click', () => {
-                    var v = $("#sn_" + c).text()
-                    var Path = $("#sn_" + c).attr('link')
-                    update(ref(db, Path), { Status: "Acknowledged" })
+                    if ($("#ack_"+c).is(':checked')) {
+                        var v = $("#sn_" + c).text()
+                        var Path = $("#sn_" + c).attr('link')
+                        update(ref(db, Path), { Status: "Acknowledged" })
+                        update(ref(db,'/'+school_name+school_city+'/Manpower/'+staffID),{"Status":"Busy"})
+                    }
+                    else $("#ack_"+c).prop('checked',true)
                 })
                 $("#comp_" + c).on('click', () => {
+                    if($("#comp_"+c).is(':checked')){
                     var v = $("#sn_" + c).text()
                     var Path = $("#sn_" + c).attr('link')
                     update(ref(db, Path), { Status: "Completed" })
+                    update(ref(db,'/'+school_name+school_city+'/Manpower/'+staffID),{"Status":"Available"})
+                    }
                 })
             }
         }

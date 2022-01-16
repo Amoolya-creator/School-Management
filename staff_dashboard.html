@@ -48,20 +48,22 @@
                     <h3 class="col-7">Incoming Jobs </h3>
                     <h3 class="col-4 offset-1">Feedback</h3>
                 </div>
-                <table class="table table-striped table-hover table-responsive">
-                    <thead>
-                        <tr>
-                            <th>From</th>
-                            <th>Action</th>
-                            <th>Location</th>
-                            <th>Priority</th>
-                            <th>Time</th>
-                            <th>Ack<sup>#</sup></th>
-                            <th>Completed</th>
-                        </tr>
-                    </thead>
-                    <tbody id="Requests"></tbody>
-                </table>
+                <div class="table-responsive-md">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>From</th>
+                                <th>Action</th>
+                                <th>Location</th>
+                                <th>Priority</th>
+                                <th>Time</th>
+                                <th>Ack<sup>#</sup></th>
+                                <th>Completed</th>
+                            </tr>
+                        </thead>
+                        <tbody id="Requests"></tbody>
+                    </table>
+                </div>
             </div>
             <div class="text-white">#Ack = Please check the checkbox to acknowledge the task assigned</div>
             <div class="text-white">Completed = Please check the checkbox on work completion</div>
@@ -76,7 +78,7 @@
                             <option name="Repair">Repair</option>
                             <option name="Request new">Request new</option>
                             <option name="Remove">Remove</option>
-                            <option name="Replace">Replace</option>                 
+                            <option name="Replace">Replace</option>
                             <option name="Indent">Indent</option>
                             <option name="Meeting">Request Meeting</option>
                         </select>

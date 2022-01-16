@@ -48,8 +48,8 @@ function Manpower_under_me_fx() {
         tt += '<td>' + Manpower[e].Post + '</td>'
         tt += '<td>' + Manpower[e].Name + '</td>'
         tt += '<td>' + Manpower[e].UserID + '</td>'
-        tt += '<td>' + Manpower[e].Status + '</td></tr>'
-
+        var text_color= (Manpower[e].Status=="Available")? "text-success":"text-danger"
+        tt += '<td class="bg-white '+text_color+'">' + Manpower[e].Status + '</td></tr>'
     })
     $("#My_Teachers").html(tt)
 
@@ -123,14 +123,19 @@ function start_post_listener() {
             ///// feedback
             for (var cc = 1; cc <= c; cc++) {
                 $("#ack_" + c).on('click', () => {
-                    var v = $("#sn_" + c).text()
-                    var Path = $("#sn_" + c).attr('link')
-                    update(ref(db, Path), { Status: "Acknowledged" })
+                    if ($("#ack_"+c).is(':checked')) {
+                        var v = $("#sn_" + c).text()
+                        var Path = $("#sn_" + c).attr('link')
+                        update(ref(db, Path), { Status: "Acknowledged" })
+                    }
+                    else $("#ack_"+c).prop('checked',true)
                 })
                 $("#comp_" + c).on('click', () => {
+                    if($("#comp_"+c).is(':checked')){
                     var v = $("#sn_" + c).text()
                     var Path = $("#sn_" + c).attr('link')
                     update(ref(db, Path), { Status: "Completed" })
+                    }
                 })
             }
         }
@@ -184,7 +189,8 @@ function start_outbox_listner(){
                 tt += '<td>'+data.Place+'</td>'
                 tt += '<td>'+data.Time.slice(15,24)+'</td>'
                 tt += '<td>'+data.Priority+'</td>'
-                tt += '<td>'+data.Status+'</td></tr>'
+                var text_color= (data.Status=="Completed")? "text-success":(data.Status=="Pending")?"text-danger":""
+                tt += '<td class="bg-white '+text_color+'">' + data.Status + '</td></tr>'
             }
             $("#Work_Assigned").html(tt)
         }

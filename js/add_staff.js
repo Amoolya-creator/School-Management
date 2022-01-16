@@ -41,7 +41,7 @@ $("#addRow").on('click', () => {
     var tt = '<label class="col-1 form-label">' + c + '</label>\
              <input id="Category'+ c + '" class="col form-control" placeholder="Category">\
              <input id="Name'+ c + '" class="col form-control" placeholder="Name">\
-             <input id ="UserID'+ c + '" class="col form-control" value="staff-' + (nManpower + c) + '">\
+             <input id ="UserID'+ c + '" class="col form-control" readonly value="staff-' + (nManpower + c) + '">\
              <label class="col form-col-label text-right">Reports To</label>\
              <select id="Under'+ c + '" class="col form-select">' + set_SelectOptionsText() + '</select>'
     var New_block = document.createElement('div');
