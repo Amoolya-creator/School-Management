@@ -77,8 +77,8 @@ function getFacility() {
 function add_Row(e, f) {
     c++;
     var tt = '<label class="col-1 form-label">' + c + '</label>\
-             <input id="InfrastructureName'+ c + '" class="col form-control" placeholder="Material" value=' + e + '>\
-             <input id ="InfrastructureQty'+ c + '" class="col form-control" type="number" placeholder="Quantity" value=' + f + '>'
+             <input id="InfrastructureName'+ c + '" class="col form-control" placeholder="Material" value="' + e + '">\
+             <input id ="InfrastructureQty'+ c + '" class="col form-control" type="number" placeholder="Quantity" value="' + f + '">'
     var New_block = document.createElement('div');
     New_block.classList.add("row", "form-group");
     New_block.innerHTML = tt;
@@ -87,7 +87,7 @@ function add_Row(e, f) {
 
 function availableRows() {
     for (var key in Facility_details) {
-        add_Row(key, Facility_details[key])
+        add_Row(replace_dash(key), Facility_details[key])
     };
     if (Object.keys(Facility_details).length == 0) add_Row('', 1)
 }
@@ -99,8 +99,18 @@ $("#saveData").on('click', () => {
     var nItems = Inputs.length / 2  
     var Data = {}
     for (var c = 0; c < nItems; c++) {
-        Data[Inputs[2 * c].value] = Inputs[2 * c + 1].value
+        Data[replace_spaces(Inputs[2 * c].value)] = Inputs[2 * c + 1].value
     }   
     var Path = ref(db, '/' + school_name + school_city + '/Facility/' + viewFacility)
     set(Path, Data).then(alert("Data Saved"))
 })
+
+function replace_spaces(x){
+    x.replace(' ','_')
+    return x
+}
+
+function replace_dash(x){
+    x.replace('_',' ')
+    return x
+}

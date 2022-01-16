@@ -13,8 +13,8 @@ import {
     getDatabase,
     ref,
     set,
-    onValue
-
+    onValue,
+    update
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 // Your web app's Firebase configuration
@@ -112,12 +112,15 @@ function hashCode(s) {
     }, 0)
 }
 
-function changePassword(newPassword) {
+function changePassword(newPassword,ME) {
     const auth = getAuth();
     const user = auth.currentUser;
     updatePassword(user, newPassword).then(() => {
         // Update successful.
-        alert("Password Updated Successfully")
+        var school_name = window.localStorage.getItem("school_name")
+        var school_city = window.localStorage.getItem("school_city")
+        update(ref(db,'/'+school_name+school_city+'/Manpower/'+ME),{"Password": newPassword}).then(
+        alert("Password Updated Successfully"))
     }).catch((error) => {
         alert("Error with Password Updation." + error.message)
     });

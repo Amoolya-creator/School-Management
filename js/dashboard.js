@@ -5,7 +5,8 @@ import {
     ref,
     set,
     onValue,
-    push
+    push,
+    update
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 var school_name = window.localStorage.getItem("school_name")
@@ -18,7 +19,19 @@ onValue(ref(db, Path), (snap) => {
     if (snap.exists()) {
         Manpower = snap.val()
         ME = window.localStorage.getItem("ME")
-
+        if (ME == "Principal") $("#rr").hide();
+        var tt = ''
+        
+        if (ME == "Vice Principal") { tt = '<option selected value="Principal">Principal</option>' }
+        else {
+            for (var keys in Manpower) {
+                if (ME == keys) continue
+                if (keys.slice(0, 10) == "Supervisor" || keys.slice(0, 7) == "Section" || keys=="Principal" || keys=="Vice Principal") {
+                    tt += '<option value="' + Manpower[keys].UserID + '">' + keys + '</option>'
+                }
+            }
+        }
+        $("#send_RR_to").html(tt)
         $("#Post").html(ME)
         $("#Name").html(Manpower[ME].Name)
         $("#UserID").html(Manpower[ME].UserID)
@@ -35,8 +48,8 @@ function Manpower_under_me_fx() {
     Manpower_under_me = []
     for (var Individual in Manpower) {
         if (ME == Individual) continue;
-        if (ME=="Vice Principal" && (Individual=="Principal" || Manpower[Individual].Post=="Section Incharge" )) continue;
-        if (ME.slice(0,10)=="Supervisor" && Manpower[Individual].Boss != ME) continue;
+        if (ME == "Vice Principal" && (Individual == "Principal" || Manpower[Individual].Post == "Section Incharge")) continue;
+        if (ME.slice(0, 10) == "Supervisor" && Manpower[Individual].Boss != ME) continue;
         Manpower_under_me.push(Individual);
     }
     ///////  Manpower Status ///////
@@ -52,7 +65,7 @@ function Manpower_under_me_fx() {
     ///////  Manpower options Available for work Assignment///////
     var tt = ""
     Manpower_under_me.forEach((e) => {
-        if (Manpower[e].Status == "Available") tt += '<option value="' + Manpower[e].UserID + '">'+e+'</option>'
+        if (Manpower[e].Status == "Available") tt += '<option value="' + Manpower[e].UserID + '">' + e + '</option>'
     })
     $("#send_to").html(tt)
 }
@@ -62,43 +75,72 @@ $("#send_btn").on('click', () => {
     var T = Date()
     var Post = {
         From: ME,
-        To:$("#send_to").val(),
+        To: $("#send_to").val(),
         Action: $("#action").val(),
         Object: $("#object").val(),
         Place: $("#place").val(),
         Priority: $("#priority").val(),
         Time: T,
-        Status:"Pending"
+        Status: "Pending"
     }
 
     var Outbox_Path = '/' + school_name + school_city + '/outbox/' + Manpower[ME].UserID
     var Outbox_Key = push(ref(db, Outbox_Path)).key
-    Post["Link"]=Outbox_Path+'/'+Outbox_Key;
+    Post["Link"] = Outbox_Path + '/' + Outbox_Key;
     var Postbox_Path = '/' + school_name + school_city + '/postbox/' + $("#send_to").val()
     var Postbox_Key = push(ref(db, Postbox_Path)).key
 
-    set(ref(db, Postbox_Path + '/' +Postbox_Key ), Post).then(() => {
-        alert("Work Sent to The Staff");})
+    set(ref(db, Postbox_Path + '/' + Postbox_Key), Post).then(() => {
+        alert("Work Sent to The Staff");
+    })
 
-        //save copy of work-sent
-    set(ref(db,Outbox_Path+'/'+Outbox_Key),Post)
-    
+    //save copy of work-sent
+    set(ref(db, Outbox_Path + '/' + Outbox_Key), Post)
+
+})
+//////////// Post Work (Raise Request)  //////
+$("#send_RR_btn").on('click', () => {
+    var T = Date()
+    var Post = {
+        From: ME,
+        To: $("#send_RR_to").val(),
+        Action: $("#action_RR").val(),
+        Object: $("#object_RR").val(),
+        Place: $("#place_RR").val(),
+        Priority: $("#priority_RR").val(),
+        Time: T,
+        Status: "Pending"
+    }
+
+    var Outbox_Path = '/' + school_name + school_city + '/outbox/' + Manpower[ME].UserID
+    var Outbox_Key = push(ref(db, Outbox_Path)).key
+    Post["Link"] = Outbox_Path + '/' + Outbox_Key;
+    var Postbox_Path = '/' + school_name + school_city + '/postbox/' + $("#send_RR_to").val()
+    var Postbox_Key = push(ref(db, Postbox_Path)).key
+
+    set(ref(db, Postbox_Path + '/' + Postbox_Key), Post).then(() => {
+        alert("Raised Request");
+    })
+
+    //save copy of work-sent
+    set(ref(db, Outbox_Path + '/' + Outbox_Key), Post)
+
 })
 ///////// Start Outbox Listener ///////
-function start_outbox_listner(){
+function start_outbox_listner() {
     var outboxPath = '/' + school_name + school_city + '/outbox/' + Manpower[ME].UserID
-    onValue(ref(db,outboxPath),(snap)=>{
-        if (snap.exists()){
-            var SentMessages= snap.val()
-            var tt=''
-            for (var msg in SentMessages){
+    onValue(ref(db, outboxPath), (snap) => {
+        if (snap.exists()) {
+            var SentMessages = snap.val()
+            var tt = ''
+            for (var msg in SentMessages) {
                 var data = SentMessages[msg]
-                tt += '<tr><td>'+data.Action+ " " +data.Object+'</td>'
-                tt += '<td>'+data.To+'</td>'
-                tt += '<td>'+data.Place+'</td>'
-                tt += '<td>'+data.Time.slice(15,24)+'</td>'
-                tt += '<td>'+data.Priority+'</td>'
-                tt += '<td>'+data.Status+'</td></tr>'
+                tt += '<tr><td>' + data.Action + " " + data.Object + '</td>'
+                tt += '<td>' + data.To + '</td>'
+                tt += '<td>' + data.Place + '</td>'
+                tt += '<td>' + data.Time.slice(15, 24) + '</td>'
+                tt += '<td>' + data.Priority + '</td>'
+                tt += '<td>' + data.Status + '</td></tr>'
             }
             $("#Work_Assigned").html(tt)
         }
@@ -106,31 +148,46 @@ function start_outbox_listner(){
 }
 
 ///////////// Start Post Listener//////////
-
 function start_post_listener() {
     var myPath = '/' + school_name + school_city + '/postbox/' + Manpower[ME].UserID
     onValue(ref(db, myPath), (snap) => {
         if (snap.exists()) {
             var tt = ""
+            var c = 0
             var Requests = snap.val()
             for (var Request in Requests) {
                 var data = Requests[Request]
+                c++
                 tt += '<tr>\
-                <td>' +data.From+'</td>\
-            <td>' + data.Action + '</td>\
-            <td>' + data.Object + '</td>\
+            <td id ="sn_'+ c + '" link="' + data.Link + '">' + data.From + '</td>\
+            <td>' + data.Action + " " + data.Object + '</td>\
             <td>' + data.Place + '</td>\
             <td>' + data.Priority + '</td>\
-            <td>' + data.Time.slice(15,21) + '</td>\
+            <td>' + data.Time.slice(15, 24) + '</td>\
+            <td> <input id="ack_'+ c + '" type="checkbox">\
+            <td> <input id="comp_'+ c + '" type="checkbox">\
             <tr>'
                 $("#Requests").html(tt)
+            }
+            ///// feedback
+            for (var cc = 1; cc <= c; cc++) {
+                $("#ack_" + c).on('click', () => {
+                    var v = $("#sn_" + c).text()
+                    var Path = $("#sn_" + c).attr('link')
+                    update(ref(db, Path), { Status: "Acknowledged" })
+                })
+                $("#comp_" + c).on('click', () => {
+                    var v = $("#sn_" + c).text()
+                    var Path = $("#sn_" + c).attr('link')
+                    update(ref(db, Path), { Status: "Completed" })
+                })
             }
         }
     })
 }
 
 /////// Change Password ///////
-$("#set_btn").on('click', ()=>{
+$("#set_btn").on('click', () => {
     var newPwd = $("#newPwd").val()
-    changePassword(newPwd)
+    changePassword(newPwd, ME)
 })

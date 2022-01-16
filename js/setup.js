@@ -44,7 +44,7 @@ function createPrincipal() {
         Email: $('#principal_email').val(),
         Password: hashCode($('#principal_name').val()),
         UserID: "Principal",
-        Supervises: "Vice Principal, All Section Incharges",
+        Supervises: "Vice Principal, All Supervisors & Section Incharges",
         Status:"Available",
         Boss:"Admin",
         BossID:"Admin",

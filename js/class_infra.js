@@ -124,8 +124,8 @@ onValue(ref(db, '/' + school_name + school_city + '/Class'), (snap) => {
 function addRow(e, f) {
     c++;
     var tt = '<label id="sNo" class="col-1 form-label">' + c + '</label>\
-             <input id="InfrastructureName' + c + '" class="col form-control" placeholder="Material" value=' + e + '>\
-             <input id ="InfrastructureQty' + c + '" class="col form-control" type="number" placeholder="Quantity" value=' + f + '>'
+             <input id="InfrastructureName' + c + '" class="col form-control" placeholder="Material" value="' + e + '">\
+             <input id ="InfrastructureQty' + c + '" class="col form-control" type="number" placeholder="Quantity" value="' + f + '">'
     var New_block = document.createElement('div');
     New_block.classList.add("row", "form-group");
     New_block.innerHTML = tt;
@@ -134,7 +134,7 @@ function addRow(e, f) {
 
 function availableRows() {
     for (var key in Materials) {
-        addRow(key, Materials[key])
+        addRow(replace_dash(key), Materials[key])
     };
 }
 
@@ -150,11 +150,21 @@ $("#saveData").on('click', () => {
     var SaveMaterial = {}
     var Tot = (nItems) / 2
     for (var c = 0; c < Tot; c++) {
-        if (input[c * 2].value == undefined || input[c * 2].value == "") continue
-        SaveMaterial[input[c * 2].value] = input[c * 2 + 1].value
+        if (input[c * 2].value == undefined || input[c * 2].value == "") continue 
+        SaveMaterial[replace_spaces(input[c * 2].value)] = input[c * 2 + 1].value
     }
     var school_name = window.localStorage.getItem("school_name")
     var school_city = window.localStorage.getItem("school_city")
     var Path = ref(db, '/' + school_name + school_city + '/Class/' + currentClass);
     set(Path, SaveMaterial).then(alert("Data for " + $('.tab-pane.show').attr('id').slice(6) + " Saved"))
 })
+
+function replace_spaces(x){
+    x.replace(' ','_')
+    return x
+}
+
+function replace_dash(x){
+    x.replace('_',' ')
+    return x
+}

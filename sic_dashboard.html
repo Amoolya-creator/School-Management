@@ -55,7 +55,7 @@
             <div class="col-md-4">
                 <div class="h-100 p-2 bg-info rounded">
                     <h3>My Teachers</h3>
-                    <table class="table">
+                    <table class="table table-striped table-hover table-responsive">
                         <thead>
                             <th>Subject</th>
                             <th>Name</th>
@@ -69,19 +69,38 @@
             <div class="col-md-8">
                 <div class="row rounded p-2 mb-2 bg-white">
                     <h3>Incoming Requests</h3>
-                    <table class="table table-responsive" >
+                    <table class="table table-striped table-hover table-responsive" >
                         <thead>
                             <tr>
                                 <th>From</th>
                                 <th>Action</th>
-                                <th>Material</th>
                                 <th>Location</th>
                                 <th>Priority</th>
                                 <th>Time</th>
+                                <th>Ack</th>
+                                <th>Completed</th>
                             </tr>
                         </thead>
                         <tbody id="Requests"></tbody>
                     </table>
+                </div>
+                <div class="row p-2 mb-2 bg-primary rounded">
+                    <h3 class="rounded">Realtime Status</h3>
+                    <div class="bg-white rounded">
+                        <table class="table table-striped table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Work</th>
+                                    <th>To whom</th>
+                                    <th>Location</th>
+                                    <th>Time</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="Work_Assigned"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -91,7 +110,7 @@
                     <h3>Set Time Table for Teachers</h3>
                     <p class="text-white">Please assign the Class-Section for teacher(s) under the given period(s).</p>
                 </div>
-                <table class=" col bg-info p-2 m-2 rounded table table-striped table-hover table-responsive" >
+                <table class="col bg-info p-2 m-2 rounded table table-striped table-hover table-responsive" >
                     <thead>
                         <th>Teacher</th>
                         <th>UserID</th>
@@ -109,6 +128,50 @@
                 </table>
             </div>
         </div>
+        <div class="row m-4 p-2 bg-dark rounded ">
+            <div class="col p-2 bg-primary rounded ">
+                <h3 class="rounded">Raise Request</h3>
+                <div class="row">
+                    <div class="col-md-2 col-sm-6 col-xs-12 form-group">
+                        <h6>Action</h6>
+                        <select id="action" class="form-select">
+                            <option name="Repair">Repair</option>
+                            <option name="Clean">Clean</option>
+                            <option name="Add">Add</option>
+                            <option name="Remove">Remove</option>
+                            <option name="Replace">Replace</option>
+                            <option name="Indent">Indent</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-12 form-group">
+                        <h6>Material</h6>
+                        <input id="object" class="form-control" type="text"></input>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-12 form-group">
+                        <h6>Location</h6>
+                        <input id="place" class="form-control" type="text"></input>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-12">
+                        <h6>Priority</h6>
+                        <select id="priority" class="form-select">
+                            <option selected name="Routine">Routine</option>
+                            <option class="text-warning" name="Priority">Priority</option>
+                            <option class="text-danger" name="Urgent">Urgent</option>
+                            <option class="text-danger" name="Immediate">Immediate</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-12">
+                        <h6>To</h6>
+                        <select id="send_to" class="form-select">
+                        </select>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-12">
+                        <h6>&nbsp;</h6>
+                        <button id="send_btn" class="btn btn-primary">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div id="footer" class="row m-4 p-2">
             <div class="col text-center">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
@@ -116,7 +179,7 @@
                 </button>
             </div>
             <div class="col text-center">
-                <button id="send_btn" class="btn btn-primary" >Send Timetable to Teacher(s)</button>
+                <button id="send_tt_btn" class="btn btn-primary" >Send Timetable to Teacher(s)</button>
             </div>
             <div class="col text-center">
                 <button class="btn btn-primary" onclick="window.location.assign('./add_teacher.html')">Add
