@@ -78,8 +78,8 @@ function Manpower_under_me_fx() {
 //////////// Post Work   //////
 $("#send_tt_btn").on('click', () => {
     var Inputs = $("input");
-    var nInputs =( Inputs.length-1) / 9 ///had to subtract 1 as input field for change password is also now present
-
+    var nInputs =( Inputs.length-3) / 9 ///had to subtract 1 as input field for change password is also now present
+    
     for (var c = 0; c < nInputs; c++) {
       
         var Post_Path = '/' + school_name + school_city + '/postbox/' + Inputs[9 * c].value
