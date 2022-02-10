@@ -74,18 +74,18 @@ function setDefaultMaterials() {
     DefaultMaterials = {
         "Tables": nStudents,
         "Chairs": nStudents,
-        "Teacher_Table": 1,
-        "Teacher_Chair": 1,
+        "Teacher Table": 1,
+        "Teacher Chair": 1,
         "Blackboard": 1,
-        "AV_Equipment": 1,
-        "Smart_Class": 1,
-        "Chalk_Box": 2,
+        "AV Equipment": 1,
+        "Smart Class": 1,
+        "Chalk Box": 2,
         "Pens": 5,
         "Pencils": nStudents,
-        "Crayon_Box": nStudents,
-        "Attendance_Register": 1,
-        "File_Folders": 5,
-        "Chart_Papers": nStudents,
+        "Crayon Box": nStudents,
+        "Attendance Register": 1,
+        "File Folders": 5,
+        "Chart Papers": nStudents,
         "Eraser": 1
     }
 }
