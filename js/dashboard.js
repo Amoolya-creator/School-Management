@@ -1,5 +1,6 @@
 import {
-    db, changePassword
+    db,
+    changePassword
 } from "./main.js";
 import {
     ref,
@@ -22,8 +23,9 @@ onValue(ref(db, Path), (snap) => {
         if (ME == "Principal") $("#rr").hide();
         var tt = ''
 
-        if (ME == "Vice Principal") { tt = '<option selected value="Principal">Principal</option>' }
-        else {
+        if (ME == "Vice Principal") {
+            tt = '<option selected value="Principal">Principal</option>'
+        } else {
             for (var keys in Manpower) {
                 if (ME == keys) continue
                 if (keys.slice(0, 10) == "Supervisor" || keys.slice(0, 7) == "Section" || keys == "Principal" || keys == "Vice Principal") {
@@ -36,6 +38,7 @@ onValue(ref(db, Path), (snap) => {
         $("#Name").html(Manpower[ME].Name)
         $("#UserID").html(Manpower[ME].UserID)
         Manpower_under_me_fx();
+        DeleteOldWorks();
         start_outbox_listner();
         start_post_listener();
     }
@@ -58,8 +61,8 @@ function Manpower_under_me_fx() {
         tt += '<tr><td>' + Manpower[e].Post + '</td>'
         tt += '<td>' + Manpower[e].UserID + '</td>'
         tt += '<td>' + Manpower[e].Name + '</td>'
-        var text_color= (Manpower[e].Status=="Available")? "text-success":"text-danger"
-        tt += '<td class="bg-white '+text_color+'">' + Manpower[e].Status + '</td></tr>'
+        var text_color = (Manpower[e].Status == "Available") ? "text-success" : "text-danger"
+        tt += '<td class="bg-white ' + text_color + '">' + Manpower[e].Status + '</td></tr>'
     })
     $("#My_Staff").html(tt)
 
@@ -91,12 +94,12 @@ $("#send_btn").on('click', () => {
     var Postbox_Path = '/' + school_name + school_city + '/postbox/' + $("#send_to").val()
     var Postbox_Key = push(ref(db, Postbox_Path)).key
 
-    set(ref(db, Postbox_Path + '/' + Postbox_Key), Post).then(() => {
-        alert("Work Sent to The Staff");
+    set(ref(db, Postbox_Path + '/' + Postbox_Key), Post).then(() => {        
+        Post["Link"]= Postbox_Path + '/'+ Postbox_Key;
+         //save copy of work-sent
+        set(ref(db, Outbox_Path + '/' + Outbox_Key), Post)
+        alert("Work Sent to Staff");
     })
-
-    //save copy of work-sent
-    set(ref(db, Outbox_Path + '/' + Outbox_Key), Post)
 
 })
 //////////// Post Work (Raise Request)  //////
@@ -119,14 +122,14 @@ $("#send_RR_btn").on('click', () => {
     var Postbox_Path = '/' + school_name + school_city + '/postbox/' + $("#send_RR_to").val()
     var Postbox_Key = push(ref(db, Postbox_Path)).key
 
-    set(ref(db, Postbox_Path + '/' + Postbox_Key), Post).then(() => {
+    set(ref(db, Postbox_Path + '/' + Postbox_Key), Post).then(() => {        
+        Post["Link"]= Postbox_Path + '/'+ Postbox_Key;
+         //save copy of work-sent
+        set(ref(db, Outbox_Path + '/' + Outbox_Key), Post)
         alert("Raised Request");
     })
-
-    //save copy of work-sent
-    set(ref(db, Outbox_Path + '/' + Outbox_Key), Post)
-
 })
+
 ///////// Start Outbox Listener ///////
 function start_outbox_listner() {
     var outboxPath = '/' + school_name + school_city + '/outbox/' + Manpower[ME].UserID
@@ -141,9 +144,9 @@ function start_outbox_listner() {
                 tt += '<td>' + data.Place + '</td>'
                 tt += '<td>' + data.Time.slice(15, 24) + '</td>'
                 tt += '<td>' + data.Priority + '</td>'
-                var text_color= (data.Status=="Completed")? "text-success":(data.Status=="Pending")?"text-danger":""
-                tt += '<td class="bg-white '+text_color+'">' + data.Status + '</td></tr>'
-                
+                var text_color = (data.Status == "Completed") ? "text-success" : (data.Status == "Pending") ? "text-danger" : ""
+                tt += '<td class="bg-white ' + text_color + '">' + data.Status + '</td></tr>'
+
             }
             $("#Work_Assigned").html(tt)
         }
@@ -161,35 +164,29 @@ function start_post_listener() {
             for (var Request in Requests) {
                 var data = Requests[Request]
                 c++
+                var hide= (data.From.slice(0,5)=="staff" || data.From.slice(0,7)=="teacher")?"style='display:none;'":"";
                 tt += '<tr>\
-            <td id ="sn_'+ c + '" link="' + data.Link + '">' + data.From + '</td>\
+            <td>' + data.From + '</td>\
             <td>' + data.Action + " " + data.Object + '</td>\
             <td>' + data.Place + '</td>\
             <td>' + data.Priority + '</td>\
             <td>' + data.Time.slice(15, 24) + '</td>\
-            <td> <input id="ack_'+ c + '" type="checkbox">\
-            <td> <input id="comp_'+ c + '" type="checkbox">\
+            <td> <input class="ack" name="' + c + '" link="' + data.Link + '" type="radio" '+hide+'></td>\
+            <td> <input class="comp" name="' + c + '" link="' + data.Link + '" type="radio" '+hide+'></td>\
             <tr>'
                 $("#Requests").html(tt)
             }
             ///// feedback
-            for (var cc = 1; cc <= c; cc++) {
-                $("#ack_" + c).on('click', () => {
-                    if ($("#ack_" + c).is(':checked')) {
-                        var v = $("#sn_" + c).text()
-                        var Path = $("#sn_" + c).attr('link')
-                        update(ref(db, Path), { Status: "Acknowledged" })
-                    }
-                    else $("#ack_" + c).prop('checked', true)
+            $(".ack").click(function () {
+                update(ref(db, $(this).attr('link')), {
+                    Status: "Acknowledged"
                 })
-                $("#comp_" + c).on('click', () => {
-                    if ($("#comp_" + c).is(':checked')) {
-                        var v = $("#sn_" + c).text()
-                        var Path = $("#sn_" + c).attr('link')
-                        update(ref(db, Path), { Status: "Completed" })
-                    }
+            })
+            $(".comp").click(function () {
+                update(ref(db, $(this).attr('link')), {
+                    Status: "Completed"
                 })
-            }
+            })
         }
     })
 }
@@ -199,3 +196,38 @@ $("#set_btn").on('click', () => {
     var newPwd = $("#newPwd").val()
     changePassword(newPwd, ME)
 })
+
+/////// Deleting Old Completed Works ////////
+function DeleteOldWorks() {
+    var D = Date().slice(4, 15)
+    var Path1 = '/' + school_name + school_city + '/outbox/' + Manpower[ME].UserID
+    onValue(ref(db, Path1 ), (snap) => {
+        if (snap.exists()) {
+            var Works = snap.val()
+            for (var Work in Works) {
+                var OB = Works[Work]
+                if (OB.Status == "Completed" && OB.Time.slice(4, 15) != D) {
+                    set(ref(db, OB.Link), {})
+                    set(ref(db, Path1 + '/'+ Work),{})
+                }
+            }
+        }
+    }, {
+        onlyOnce: true
+    })
+
+    var Path2 = '/' + school_name + school_city + '/postbox/' + Manpower[ME].UserID
+    onValue(ref(db, Path2 ), (snap) => {
+        if (snap.exists()) {
+            var Works = snap.val()
+            for (var Work in Works) {
+                var OB = Works[Work]
+                if ((OB.From.slice(0,5) == "staff" || OB.From.slice(0,7) == "teacher") && OB.Time.slice(4, 15) != D) {
+                    set(ref(db, Path2 + '/'+ Work),{})
+                }
+            }
+        }
+    }, {
+        onlyOnce: true
+    })
+}

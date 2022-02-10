@@ -35,7 +35,7 @@ onValue(ref(db, Path), (snap) => {
 
         if (Auth == false) NotAuth()
         tt = '<option selected value="' + Manpower[staffID].BossID + '">My Supervisor</option>\
-        <option value="'+ Manpower[staffID].Recruiter + '">My Recruiter</option>' + tt
+        <option value="' + Manpower[staffID].Recruiter + '">My Recruiter</option>' + tt
         $("#send_to").html(tt)
         $("#Post").html(Manpower[staffID].Post)
         $("#Name").html(Manpower[staffID].Name)
@@ -77,36 +77,34 @@ function start_post_listener() {
                 var data = Requests[Request]
                 c++
                 tt += '<tr>\
-            <td id ="sn_'+ c + '" link="' + data.Link + '">' + data.From + '</td>\
+            <td>' + data.From + '</td>\
             <td>' + data.Action + " " + data.Object + '</td>\
             <td>' + data.Place + '</td>\
             <td>' + data.Priority + '</td>\
             <td>' + data.Time.slice(15, 24) + '</td>\
-            <td> <input id="ack_'+ c + '" type="checkbox">\
-            <td> <input id="comp_'+ c + '" type="checkbox">\
+            <td> <input type="radio" class="ack" name="' + c + '" link="' + data.Link + '"></td>\
+            <td> <input type="radio" class="comp" name="' + c + '" link="' + data.Link + '"></td>\
             <tr>'
                 $("#Requests").html(tt)
             }
             ///// feedback
-            for (var cc = 1; cc <= c; cc++) {
-                $("#ack_" + c).on('click', () => {
-                    if ($("#ack_"+c).is(':checked')) {
-                        var v = $("#sn_" + c).text()
-                        var Path = $("#sn_" + c).attr('link')
-                        update(ref(db, Path), { Status: "Acknowledged" })
-                        update(ref(db,'/'+school_name+school_city+'/Manpower/'+staffID),{"Status":"Busy"})
-                    }
-                    else $("#ack_"+c).prop('checked',true)
-                })
-                $("#comp_" + c).on('click', () => {
-                    if($("#comp_"+c).is(':checked')){
-                    var v = $("#sn_" + c).text()
-                    var Path = $("#sn_" + c).attr('link')
-                    update(ref(db, Path), { Status: "Completed" })
-                    update(ref(db,'/'+school_name+school_city+'/Manpower/'+staffID),{"Status":"Available"})
-                    }
-                })
-            }
+
+            $(".ack").click(function () {   
+                update(ref(db, $(this).attr('link')), {
+                    Status: "Acknowledged"
+                }).then(
+                update(ref(db, '/' + school_name + school_city + '/Manpower/' + staffID), {
+                    Status: "Busy"
+                }))
+            })
+            $(".comp").click(function () { 
+                update(ref(db, $(this).attr('link')), {
+                    Status: "Completed"
+                }).then(
+                update(ref(db, '/' + school_name + school_city + '/Manpower/' + staffID), {
+                    Status: "Available"
+                }))
+            })
         }
     })
 }
