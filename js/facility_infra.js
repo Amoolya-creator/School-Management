@@ -48,18 +48,19 @@ else {
             <div class="col-3">\
                 <div class="btn btn-primary" id="get">Get Data</div>\
             </div>\
-            </div >'
+            </div>'
             $("#facility").html(tt)
+            
             $("#get").on('click', () => {
                 c = 0;
                 $("#tab1").html('');
                 viewFacility = $("#facilities").val().replace(' ', "_")
                 getFacility()
             })
+            $("#facilities").change(()=>{$("#get").click()})
         }
     }, { onlyOnce: true })
 }
-
 
 /// GET DATA FROM FIREBASE /////
 function getFacility() {

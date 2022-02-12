@@ -150,7 +150,7 @@ $("#saveData").on('click', () => {
     var SaveMaterial = {}
     var Tot = (nItems) / 2
     for (var c = 0; c < Tot; c++) {
-        if (input[c * 2].value == undefined || input[c * 2].value == "") continue 
+        if (input[c * 2].value == undefined || input[c * 2].value == "" || input[c * 2 + 1].value==0) continue 
         SaveMaterial[replace_spaces(input[c * 2].value)] = input[c * 2 + 1].value
     }
     var school_name = window.localStorage.getItem("school_name")

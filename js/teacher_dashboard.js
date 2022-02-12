@@ -67,17 +67,11 @@ function start_post_listener() {
     var myPath = '/' + school_name + school_city + '/postbox/' + staffID
     onValue(ref(db, myPath), (snap) => {
         if (snap.exists()) {
+            var TD = Date().slice(0,3)
             var tt = '<tr>'
             var data = snap.val()
-            tt += '<td>' + data.P1 + '</td>\
-            <td>' + data.P2 + '</td>\
-            <td>' + data.P3 + '</td>\
-            <td>' + data.P4 + '</td>\
-            <td>' + data.P5 + '</td>\
-            <td>' + data.P6 + '</td>\
-            <td>' + data.P7 + '</td>\
-            <td>' + data.P8 + '</td>\
-            <tr>'
+            for (var v =1;v<9;v++)  tt += '<td>' + data[TD+'-P'+v] + '</td>'      
+            tt+='<tr>'
             $("#Requests").html(tt)
         }
     })

@@ -14,7 +14,6 @@
 
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <script>
-
         //Get School ID if present in local storage
         school_name = window.localStorage.getItem("school_name")
         school_city = window.localStorage.getItem("school_city")
@@ -23,7 +22,6 @@
             alert("You are not authorized to visit this page")
             window.location.assign("./index.html")
         }
-
     </script>
 </head>
 
@@ -41,13 +39,13 @@
         </div>
         <div id="head" class="row p-2 m-4 bg-primary rounded">
             <div class="col-6">
-                <h5 class="p-3">Section-Incharge: <span id="Post"></span></h4>
+                <h5 class="p-3 fw-bold">Section-Incharge: <span id="Post" class="text-success fw-normal"></span></h4>
             </div>
             <div class="col">
-                <h5 class="p-3">Name: <span id="Name"></span></h4>
+                <h5 class="p-3 fw-bold">Name: <span id="Name" class="text-success fw-normal"></span></h4>
             </div>
             <div class="col">
-                <h5 class="p-3">UserID: <span id="UserID"></span></h4>
+                <h5 class="p-3 fw-bold">UserID: <span id="UserID" class="text-success fw-normal"></span></h4>
             </div>
         </div>
 
@@ -56,15 +54,15 @@
                 <div class="h-100 p-2 bg-info rounded">
                     <h3>My Teachers</h3>
                     <div class="table-responsive-md">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <th>Subject</th>
-                            <th>Name</th>
-                            <th>UserID</th>
-                            <th>Status</th>
-                        </thead>
-                        <tbody id="My_Teachers"></tbody>
-                    </table>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <th>Subject</th>
+                                <th>Name</th>
+                                <th>UserID</th>
+                                <th>Status</th>
+                            </thead>
+                            <tbody id="My_Teachers"></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -111,7 +109,11 @@
             <div class="col row p-2 m-2 bg-primary rounded">
                 <div class="rounded">
                     <h3>Set Time Table for Teachers</h3>
-                    <p class="text-white">Please assign the Class-Section for teacher(s) under the given period(s).</p>
+                    <p class="text-white">Please assign the Class-Section for teacher(s) under the given period(s).
+                        The system populates the timetable according to today's "Day of the week" i.e. 
+                        <script>document.write(Date().slice(0,3))</script>
+                    </p>
+
                 </div>
                 <div class="table-responsive-xl">
                     <table class="col bg-info p-2 m-2 rounded table table-striped table-hover">

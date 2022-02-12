@@ -143,7 +143,8 @@ function start_outbox_listner() {
                 tt += '<td>' + data.To + '</td>'
                 tt += '<td>' + data.Place + '</td>'
                 tt += '<td>' + data.Time.slice(15, 24) + '</td>'
-                tt += '<td>' + data.Priority + '</td>'
+                var text_color = (data.Priority == "Urgent" || data.Priority =="Immediate") ? "text-danger fw-bold" : (data.Priority == "Priority") ? "text-warning fw-bold" : ""
+                tt += '<td class="'+ text_color +'">' + data.Priority + '</td>'
                 var text_color = (data.Status == "Completed") ? "text-success" : (data.Status == "Pending") ? "text-danger" : ""
                 tt += '<td class="bg-white ' + text_color + '">' + data.Status + '</td></tr>'
 
@@ -168,8 +169,9 @@ function start_post_listener() {
                 tt += '<tr>\
             <td>' + data.From + '</td>\
             <td>' + data.Action + " " + data.Object + '</td>\
-            <td>' + data.Place + '</td>\
-            <td>' + data.Priority + '</td>\
+            <td>' + data.Place + '</td>'
+            var text_color = (data.Priority == "Urgent" || data.Priority =="Immediate") ? "text-danger fw-bold" : (data.Priority == "Priority") ? "text-warning fw-bold" : ""
+            tt += '<td class="'+ text_color +'">' + data.Priority + '</td>\
             <td>' + data.Time.slice(15, 24) + '</td>\
             <td> <input class="ack" name="' + c + '" link="' + data.Link + '" type="radio" '+hide+'></td>\
             <td> <input class="comp" name="' + c + '" link="' + data.Link + '" type="radio" '+hide+'></td>\

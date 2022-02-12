@@ -79,8 +79,9 @@ function start_post_listener() {
                 tt += '<tr>\
             <td>' + data.From + '</td>\
             <td>' + data.Action + " " + data.Object + '</td>\
-            <td>' + data.Place + '</td>\
-            <td>' + data.Priority + '</td>\
+            <td>' + data.Place + '</td>'
+            var text_color = (data.Priority == "Urgent" || data.Priority =="Immediate") ? "text-danger fw-bold" : (data.Priority == "Priority") ? "text-warning fw-bold" : ""
+            tt += '<td class="'+ text_color +'">' + data.Priority + '</td>\
             <td>' + data.Time.slice(15, 24) + '</td>\
             <td> <input type="radio" class="ack" name="' + c + '" link="' + data.Link + '"></td>\
             <td> <input type="radio" class="comp" name="' + c + '" link="' + data.Link + '"></td>\

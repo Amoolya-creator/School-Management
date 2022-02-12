@@ -14,6 +14,9 @@ var school_name = window.localStorage.getItem("school_name")
 var school_city = window.localStorage.getItem("school_city")
 $("#school").html(school_name + ", " + school_city)
 
+
+var TD = Date().slice(0,3) //Today's Day
+
 var Manpower, ME
 var Path = '/' + school_name + school_city + '/Manpower'
 onValue(ref(db, Path), (snap) => {
@@ -39,6 +42,8 @@ onValue(ref(db, Path), (snap) => {
 ////////// Manpower under ME //////
 var Manpower_under_me = []
 
+var Postboxes =new Object
+
 function Manpower_under_me_fx() {
     Manpower_under_me = []
     for (var Individual in Manpower) {
@@ -57,22 +62,39 @@ function Manpower_under_me_fx() {
     $("#My_Teachers").html(tt)
 
     ///////  Manpower options Available for work Assignment///////
-    var tt = ""
-    var n = 0
+
+    ///// Read data for Teacher if Available
+    onValue(ref(db, '/' + school_name + school_city + '/postbox'), (snap) => {
+        if (snap.exists()) {
+            Postboxes = snap.val()
+        }
+        Fill_TimeTable()
+    })
+}
+
+///// Fill values in TimeTable //////
+function Fill_TimeTable() {
+    var tt=""
+   
     Manpower_under_me.forEach((e) => {
         if (Manpower[e].Status == "Available") {
-
+            var PB = new Object
+            if (Postboxes[e] == undefined) {
+                var Days =["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+                Days.forEach( (Day)=>{for (var c = 1; c < 9; c++) PB[Day+ "-P" + c] = ""})
+            } else
+            {
+                PB = Postboxes[e]
+            }
+            ///// Making input boxes for each teacher ///////
             tt += '<tr><td>' + Manpower[e].Name + '</td>\
             <td><input class="in" size=12 readonly value="' + Manpower[e].UserID + '"></td>\
-            <td>' + Manpower[e].Post + '</td>\
-            <td><input class="in" value="" maxlength=3 size=3></td>\
-            <td><input class="in" value="" maxlength=3 size=3></td>\
-            <td><input class="in" value="" maxlength=3 size=3></td>\
-            <td><input class="in" value="" maxlength=3 size=3></td>\
-            <td><input class="in" value="" maxlength=3 size=3></td>\
-            <td><input class="in" value="" maxlength=3 size=3></td>\
-            <td><input class="in" value="" maxlength=3 size=3></td>\
-            <td><input class="in" value="" maxlength=3 size=3></td></tr>'
+            <td>' + Manpower[e].Post + '</td>'
+            for (var c = 1; c < 9; c++) {
+                var xx= (PB[TD+'-P'+c]==undefined) ? "":PB[TD+'-P'+c]
+                tt += '<td><input class="in" value="'+xx+'" maxlength=3 size=3></td>'
+            }
+            tt += '</tr>'
         }
     })
     $("#timetable").html(tt)
@@ -81,20 +103,14 @@ function Manpower_under_me_fx() {
 //////////// Post Work   //////
 $("#send_tt_btn").on('click', () => {
     var Inputs = $(".in");
-    var nInputs = (Inputs.length) / 9 
+    var nInputs = (Inputs.length) / 9
     for (var c = 0; c < nInputs; c++) {
         var Post_Path = '/' + school_name + school_city + '/postbox/' + Inputs[9 * c].value
-        var Data = {
-            P1: Inputs[9 * c + 1].value,
-            P2: Inputs[9 * c + 2].value,
-            P3: Inputs[9 * c + 3].value,
-            P4: Inputs[9 * c + 4].value,
-            P5: Inputs[9 * c + 5].value,
-            P6: Inputs[9 * c + 6].value,
-            P7: Inputs[9 * c + 7].value,
-            P8: Inputs[9 * c + 8].value
+        var Data = new Object
+        for (var v=1; v<9 ; v++){
+            Data[TD+"-P"+v]=Inputs[9*c+v].value
         }
-        set(ref(db, Post_Path), Data)
+        update(ref(db, Post_Path), Data)
     }
     alert("Data sent to All Teachers")
 })
@@ -110,15 +126,16 @@ function start_post_listener() {
             for (var Request in Requests) {
                 var data = Requests[Request]
                 c++
-                var hide= (data.From.slice(0,5)=="staff" || data.From.slice(0,7)=="teacher")?"style='display:none;'":"";
+                var hide = (data.From.slice(0, 5) == "staff" || data.From.slice(0, 7) == "teacher") ? "style='display:none;'" : "";
                 tt += '<tr>\
             <td>' + data.From + '</td>\
             <td>' + data.Action + " " + data.Object + '</td>\
-            <td>' + data.Place + '</td>\
-            <td>' + data.Priority + '</td>\
+            <td>' + data.Place + '</td>'
+                var text_color = (data.Priority == "Urgent" || data.Priority == "Immediate") ? "text-danger fw-bold" : (data.Priority == "Priority") ? "text-warning fw-bold" : ""
+                tt += '<td class="' + text_color + '">' + data.Priority + '</td>\
             <td>' + data.Time.slice(15, 24) + '</td>\
-            <td><input class="ack" type="radio" name="' + c + '" link="' + data.Link + '" '+hide+'></td>\
-            <td><input class="comp" type="radio" name="' + c + '" link="' + data.Link + '" '+hide+'></td>\
+            <td><input class="ack" type="radio" name="' + c + '" link="' + data.Link + '" ' + hide + '></td>\
+            <td><input class="comp" type="radio" name="' + c + '" link="' + data.Link + '" ' + hide + '></td>\
             <tr>'
                 $("#Requests").html(tt)
             }
@@ -163,9 +180,9 @@ $("#send_btn").on('click', () => {
     var Postbox_Path = '/' + school_name + school_city + '/postbox/' + $("#send_to").val()
     var Postbox_Key = push(ref(db, Postbox_Path)).key
 
-    set(ref(db, Postbox_Path + '/' + Postbox_Key), Post).then(() => {        
-        Post["Link"]= Postbox_Path + '/'+ Postbox_Key;
-         //save copy of work-sent
+    set(ref(db, Postbox_Path + '/' + Postbox_Key), Post).then(() => {
+        Post["Link"] = Postbox_Path + '/' + Postbox_Key;
+        //save copy of work-sent
         set(ref(db, Outbox_Path + '/' + Outbox_Key), Post)
         alert("Raised Request");
     })
@@ -184,7 +201,8 @@ function start_outbox_listner() {
                 tt += '<td>' + data.To + '</td>'
                 tt += '<td>' + data.Place + '</td>'
                 tt += '<td>' + data.Time.slice(15, 24) + '</td>'
-                tt += '<td>' + data.Priority + '</td>'
+                var text_color = (data.Priority == "Urgent" || data.Priority == "Immediate") ? "text-danger fw-bold" : (data.Priority == "Priority") ? "text-warning fw-bold" : ""
+                tt += '<td class="' + text_color + '">' + data.Priority + '</td>'
                 var text_color = (data.Status == "Completed") ? "text-success" : (data.Status == "Pending") ? "text-danger" : ""
                 tt += '<td class="bg-white ' + text_color + '">' + data.Status + '</td></tr>'
             }
@@ -197,14 +215,14 @@ function start_outbox_listner() {
 function DeleteOldWorks() {
     var D = Date().slice(4, 15)
     var Path1 = '/' + school_name + school_city + '/outbox/' + Manpower[ME].UserID
-    onValue(ref(db, Path1 ), (snap) => {
+    onValue(ref(db, Path1), (snap) => {
         if (snap.exists()) {
             var Works = snap.val()
             for (var Work in Works) {
                 var OB = Works[Work]
                 if (OB.Status == "Completed" && OB.Time.slice(4, 15) != D) {
                     set(ref(db, OB.Link), {})
-                    set(ref(db, Path1 + '/'+ Work),{})
+                    set(ref(db, Path1 + '/' + Work), {})
                 }
             }
         }
@@ -213,13 +231,13 @@ function DeleteOldWorks() {
     })
 
     var Path2 = '/' + school_name + school_city + '/postbox/' + Manpower[ME].UserID
-    onValue(ref(db, Path2 ), (snap) => {
+    onValue(ref(db, Path2), (snap) => {
         if (snap.exists()) {
             var Works = snap.val()
             for (var Work in Works) {
                 var OB = Works[Work]
-                if ((OB.From.slice(0,5) == "staff" || OB.From.slice(0,7) == "teacher") && OB.Time.slice(4, 15) != D) {
-                    set(ref(db, Path2 + '/'+ Work),{})
+                if ((OB.From.slice(0, 5) == "staff" || OB.From.slice(0, 7) == "teacher") && OB.Time.slice(4, 15) != D) {
+                    set(ref(db, Path2 + '/' + Work), {})
                 }
             }
         }
